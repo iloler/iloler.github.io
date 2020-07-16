@@ -1,0 +1,480 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  
+    <title>自制Go orm框架 achai orm | 养只阿柴捏脸玩</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Chen Peng">
+    
+
+    
+    <meta name="description" content="之前搞了web框架，现在再搞个orm框架吧。ORM，即Object-Relational Mapping（对象关系映射），它的作用是在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只需简单的操作对象的属性和方法。驱动什么的不准备自己搞，暂时也不搞来-.-#。准备直接用https://github.com/go-sql-driv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自制Go orm框架 achai orm">
+<meta property="og:url" content="http://chenpeng.github.io/2020/03/02/yuque/自制Go orm框架 achai orm/index.html">
+<meta property="og:site_name" content="养只阿柴捏脸玩">
+<meta property="og:description" content="之前搞了web框架，现在再搞个orm框架吧。ORM，即Object-Relational Mapping（对象关系映射），它的作用是在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只需简单的操作对象的属性和方法。驱动什么的不准备自己搞，暂时也不搞来-.-#。准备直接用https://github.com/go-sql-driv">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-16T09:34:50.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自制Go orm框架 achai orm">
+<meta name="twitter:description" content="之前搞了web框架，现在再搞个orm框架吧。ORM，即Object-Relational Mapping（对象关系映射），它的作用是在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只需简单的操作对象的属性和方法。驱动什么的不准备自己搞，暂时也不搞来-.-#。准备直接用https://github.com/go-sql-driv">
+
+    
+    <link rel="alternative" href="/atom.xml" title="养只阿柴捏脸玩" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="养只阿柴捏脸玩" title="养只阿柴捏脸玩"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="养只阿柴捏脸玩">养只阿柴捏脸玩</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:chenpeng.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/03/02/yuque/自制Go orm框架 achai orm/" title="自制Go orm框架 achai orm" itemprop="url">自制Go orm框架 achai orm</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Chen Peng" target="_blank" itemprop="author">Chen Peng</a>
+		
+  <p class="article-time">
+    <time datetime="2020-03-02T10:17:11.000Z" itemprop="datePublished"> 发表于 2020-03-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>之前搞了web框架，现在再搞个orm框架吧。<br>ORM，即Object-Relational Mapping（对象关系映射），它的作用是在关系型数据库和业务实体对象之间作一个映射，这样，我们在具体的操作业务对象的时候，就不需要再去和复杂的SQL语句打交道，只需简单的操作对象的属性和方法。<br>驱动什么的不准备自己搞，暂时也不搞来-.-#。准备直接用<a href="https://github.com/go-sql-driver/mysql" target="_blank" rel="noopener">https://github.com/go-sql-driver/mysql</a>。<br>平时用Java写CRUD，用过hibernate。基础操作如下。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">User user = <span class="keyword">new</span> User(...);</span><br><span class="line"><span class="comment">//获取加载配置管理类</span></span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line"></span><br><span class="line"><span class="comment">//不给参数就默认加载hibernate.cfg.xml文件，</span></span><br><span class="line">configuration.configure();</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建Session工厂对象</span></span><br><span class="line">SessionFactory factory = configuration.buildSessionFactory();</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到Session对象</span></span><br><span class="line">Session session = factory.openSession();</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用Hibernate操作数据库，都要开启事务,得到事务对象</span></span><br><span class="line">Transaction transaction = session.getTransaction();</span><br><span class="line"></span><br><span class="line"><span class="comment">//开启事务</span></span><br><span class="line">transaction.begin();</span><br><span class="line"></span><br><span class="line"><span class="comment">//把对象添加到数据库中</span></span><br><span class="line">session.save(user);</span><br><span class="line"></span><br><span class="line"><span class="comment">//提交事务</span></span><br><span class="line">transaction.commit();</span><br></pre></td></tr></table></figure></p>
+<p>照葫芦画瓢，大概需要配置，session，事务，实体等。<br>先建一个配置结构体Config，包括驱动名，数据库链接信息，最大连接数，超时设置等。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">type Config struct &#123;</span><br><span class="line">	DriverName     string</span><br><span class="line">	DataSourceName string</span><br><span class="line">	Active         <span class="keyword">int</span></span><br><span class="line">	Idle           <span class="keyword">int</span></span><br><span class="line">	IdleTimeout    <span class="keyword">int</span></span><br><span class="line">	QueryTimeout   <span class="keyword">int</span></span><br><span class="line">	ExecTimeout    <span class="keyword">int</span></span><br><span class="line">	TranTimeout    <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>先新建一个Orm结构体，包含两个字段。db字段对应sql.DB，包含常用的操作。models字段对应数据实体，也就是mysql中的table。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Orm <span class="keyword">struct</span> &#123;</span><br><span class="line">	db     *sql.DB</span><br><span class="line">	models []<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>按照套路我们需要一个New函数，返回一个orm。入参暂定驱动名称driverName，数据库链接信息dataSourceName，数据库用户名密码，数据库名称之类的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(config Config)</span> *<span class="title">Orm</span></span> &#123;</span><br><span class="line">	db, err := sql.Open(config.DriverName, config.DataSourceName)</span><br><span class="line">	checkErr(err)</span><br><span class="line">	db.SetMaxIdleConns(config.Idle)</span><br><span class="line">	db.SetMaxOpenConns(config.Active)</span><br><span class="line">	db.SetConnMaxLifetime(time.Duration(config.IdleTimeout))</span><br><span class="line">	orm := &amp;Orm&#123;</span><br><span class="line">		db:     db,</span><br><span class="line">		models: <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> orm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>新增一个AddModel方法，用来添加实体类。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(orm *Orm)</span> <span class="title">AddModel</span><span class="params">(model <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	orm.models = <span class="built_in">append</span>(orm.models, model)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再加一个Insert方法，用来向数据库里插入记录。主要是通过反射，判断入参是不是在orm的models字段里。在的话，通过反射获取字段名称和字段的值，拼接sql。返回我们刚刚插入的数据的id。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(orm *Orm)</span> <span class="title">Insert</span><span class="params">(model <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">int64</span></span> &#123;</span><br><span class="line">	<span class="comment">// 通过反射，获取model类型</span></span><br><span class="line">	t := reflect.Indirect(reflect.ValueOf(model)).Type()</span><br><span class="line">	tableName := <span class="string">""</span></span><br><span class="line">	<span class="keyword">var</span> fieldName []<span class="keyword">string</span></span><br><span class="line">	<span class="keyword">var</span> valueName []<span class="keyword">string</span></span><br><span class="line">	<span class="keyword">var</span> args []<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> _, m := <span class="keyword">range</span> orm.models &#123;</span><br><span class="line">		t1 := reflect.Indirect(reflect.ValueOf(m)).Type()</span><br><span class="line">		fmt.Println(t.Name())</span><br><span class="line">		fmt.Println(t1.Name())</span><br><span class="line">		<span class="keyword">if</span> t.Name() == t1.Name() &#123;</span><br><span class="line">			tableName = t.Name()</span><br><span class="line">			<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; t.NumField(); i++ &#123;</span><br><span class="line">				sf := t.Field(i)</span><br><span class="line">				<span class="keyword">if</span> sf.Name != <span class="string">"id"</span> &#123;</span><br><span class="line">					fieldName = <span class="built_in">append</span>(fieldName, sf.Name)</span><br><span class="line">					valueName = <span class="built_in">append</span>(valueName, <span class="string">"?"</span>)</span><br><span class="line">					f := reflect.Indirect(reflect.ValueOf(model)).Field(i)</span><br><span class="line">					<span class="keyword">switch</span> f.Kind() &#123;</span><br><span class="line">					<span class="keyword">case</span> reflect.Int:</span><br><span class="line">						args = <span class="built_in">append</span>(args, f.Int())</span><br><span class="line">					<span class="keyword">case</span> reflect.Int64:</span><br><span class="line">						args = <span class="built_in">append</span>(args, strconv.FormatInt(f.Int(), <span class="number">10</span>))</span><br><span class="line">					<span class="keyword">case</span> reflect.String:</span><br><span class="line">						args = <span class="built_in">append</span>(args, f.String())</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fieldsName := strings.Join(fieldName, <span class="string">","</span>)</span><br><span class="line">	valuesName := strings.Join(valueName, <span class="string">","</span>)</span><br><span class="line">	sqlStr := fmt.Sprintf(<span class="string">"INSERT INTO `%s` (%s) values (%s)"</span>, tableName, fieldsName, valuesName)</span><br><span class="line">	fmt.Println(sqlStr)</span><br><span class="line">	stmt, err := orm.db.Prepare(sqlStr)</span><br><span class="line">	checkErr(err)</span><br><span class="line">	res, err := stmt.Exec(args...)</span><br><span class="line">	checkErr(err)</span><br><span class="line">	id, err := res.LastInsertId()</span><br><span class="line">	checkErr(err)</span><br><span class="line">	<span class="keyword">return</span> id</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试一下发现确实可用，哈哈哈！<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">config := orm.Config&#123;DriverName: <span class="string">"mysql"</span>, DataSourceName: <span class="string">"root:123456@tcp(localhost:3306)/acai?charset=utf8"</span>, Active: <span class="number">2</span>, Idle: <span class="number">2</span>, IdleTimeout: <span class="number">2</span>, QueryTimeout: <span class="number">2</span>, ExecTimeout: <span class="number">2</span>, TranTimeout: <span class="number">2</span>&#125;</span><br><span class="line">orm := orm.New(config)</span><br><span class="line">orm.AddModel(<span class="built_in">new</span>(Ceshi))</span><br><span class="line">t := &amp;Ceshi&#123;</span><br><span class="line">	Id:   <span class="number">0</span>,</span><br><span class="line">	Name: <span class="string">"aaa"</span>,</span><br><span class="line">	Age:  <span class="number">11</span>,</span><br><span class="line">&#125;</span><br><span class="line">id := orm.Insert(t)</span><br><span class="line">fmt.Println(id)</span><br></pre></td></tr></table></figure></p>
+<p>当然，上面只是简单写写，还需很有优化。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://chenpeng.github.io/2020/03/02/yuque/自制Go orm框架 achai orm/" data-title="自制Go orm框架 achai orm | 养只阿柴捏脸玩" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/03/05/yuque/Flutter笔记/" title="Flutter笔记">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Flutter笔记</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/02/26/yuque/自制Go web框架achai mvc/"  title="自制Go web框架achai mvc">
+ <strong>下一篇：</strong><br/> 
+ <span>自制Go web框架achai mvc
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/logo/" title="logo">logo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IntelliJ-IDEA/" title="IntelliJ IDEA">IntelliJ IDEA<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/汇编/" title="汇编">汇编<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://chenpeng.github.com" target="_blank" title="Blog">Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Chen Peng. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
+		
+		<a href="/about" target="_blank" title="Chen Peng">Chen Peng</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

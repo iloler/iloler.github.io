@@ -1,0 +1,857 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  
+    <title>Docker笔记 | 养只阿柴捏脸玩</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Chen Peng">
+    
+
+    
+    <meta name="description" content="本篇笔记为docker相关。 Docker简介Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源，项目代码在GitHub上维护。它轻巧，容易移植，号称“build once, configure once and run anywhere”。 基本概念Docker包括三个基本的概念：  镜像（Docker images） 容器（Docker containe">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker笔记">
+<meta property="og:url" content="http://chenpeng.github.io/2016/08/30/dock笔记/index.html">
+<meta property="og:site_name" content="养只阿柴捏脸玩">
+<meta property="og:description" content="本篇笔记为docker相关。 Docker简介Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源，项目代码在GitHub上维护。它轻巧，容易移植，号称“build once, configure once and run anywhere”。 基本概念Docker包括三个基本的概念：  镜像（Docker images） 容器（Docker containe">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20hello%20world.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20pull.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20pull%20daocloud.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20images.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20run.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20ps.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20start.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20stop.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20attach.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20export.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20import.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20rm.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20commit.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20commit%20check.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20build.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20build%20check.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20save.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20load.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20rmi.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20hub.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20search.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20login.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20push.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20volumes.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20volumes%20check.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20volumes%20container%20create.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20volumes%20container%201.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20volumes%20container%202.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20-P-1.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20-p%201.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20-p%202.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20-p%203.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20port.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20link.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20ping.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20registry.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker%20registry%20pull.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-1.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-2.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-3.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-4.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-5-1.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-6.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-7.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-8.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-9.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-10.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-11.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-12.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-13.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-14.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-15.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-16.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-17.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-18.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-19.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-20.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-21.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-22.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-23.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-24.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-25.png">
+<meta property="og:image" content="http://chenpeng.github.io/images/docker-pgsql-install-26.png">
+<meta property="og:updated_time" content="2020-07-16T09:34:26.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker笔记">
+<meta name="twitter:description" content="本篇笔记为docker相关。 Docker简介Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源，项目代码在GitHub上维护。它轻巧，容易移植，号称“build once, configure once and run anywhere”。 基本概念Docker包括三个基本的概念：  镜像（Docker images） 容器（Docker containe">
+<meta name="twitter:image" content="http://chenpeng.github.io/images/docker%20hello%20world.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="养只阿柴捏脸玩" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="养只阿柴捏脸玩" title="养只阿柴捏脸玩"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="养只阿柴捏脸玩">养只阿柴捏脸玩</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:chenpeng.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/30/dock笔记/" title="Docker笔记" itemprop="url">Docker笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Chen Peng" target="_blank" itemprop="author">Chen Peng</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-30T20:00:00.000Z" itemprop="datePublished"> 发表于 2016-08-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker简介"><span class="toc-number">1.</span> <span class="toc-text">Docker简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#镜像"><span class="toc-number">1.1.1.</span> <span class="toc-text">镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#容器"><span class="toc-number">1.1.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#仓库"><span class="toc-number">1.1.3.</span> <span class="toc-text">仓库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker安装"><span class="toc-number">2.</span> <span class="toc-text">Docker安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.1.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更新apt源"><span class="toc-number">2.1.1.</span> <span class="toc-text">更新apt源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Docker"><span class="toc-number">2.1.2.</span> <span class="toc-text">安装Docker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Docker"><span class="toc-number">3.</span> <span class="toc-text">使用Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#获取镜像（docker_pull）"><span class="toc-number">3.1.</span> <span class="toc-text">获取镜像（docker pull）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列出本地镜像（docker_images）"><span class="toc-number">3.2.</span> <span class="toc-text">列出本地镜像（docker images）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动容器（docker_run）"><span class="toc-number">3.3.</span> <span class="toc-text">启动容器（docker run）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看容器（docker_ps）"><span class="toc-number">3.4.</span> <span class="toc-text">查看容器（docker ps）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动已停止的容器（docker_start）"><span class="toc-number">3.5.</span> <span class="toc-text">启动已停止的容器（docker start）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#停止已启动的容器（docker_stop）"><span class="toc-number">3.6.</span> <span class="toc-text">停止已启动的容器（docker stop）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进入容器（docker_attach）"><span class="toc-number">3.7.</span> <span class="toc-text">进入容器（docker attach）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导出容器（docker_export）"><span class="toc-number">3.8.</span> <span class="toc-text">导出容器（docker export）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导入容器（docker_import）"><span class="toc-number">3.9.</span> <span class="toc-text">导入容器（docker import）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除容器（docker_rm）"><span class="toc-number">3.10.</span> <span class="toc-text">删除容器（docker rm）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改镜像（docker_commit）"><span class="toc-number">3.11.</span> <span class="toc-text">修改镜像（docker commit）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile"><span class="toc-number">3.12.</span> <span class="toc-text">Dockerfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存出镜像（docker_save）"><span class="toc-number">3.13.</span> <span class="toc-text">存出镜像（docker save）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#载入镜像（docker_load）"><span class="toc-number">3.14.</span> <span class="toc-text">载入镜像（docker load）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除镜像（docker_rmi）"><span class="toc-number">3.15.</span> <span class="toc-text">删除镜像（docker rmi）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker_Hub"><span class="toc-number">4.</span> <span class="toc-text">Docker Hub</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查询镜像（docker_search）"><span class="toc-number">4.1.</span> <span class="toc-text">查询镜像（docker search）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#登录注册（docker_login）"><span class="toc-number">4.2.</span> <span class="toc-text">登录注册（docker login）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上传镜像（docker_push）"><span class="toc-number">4.3.</span> <span class="toc-text">上传镜像（docker push）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据管理"><span class="toc-number">5.</span> <span class="toc-text">数据管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据卷（Data_volumes）"><span class="toc-number">5.1.</span> <span class="toc-text">数据卷（Data volumes）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个数据卷"><span class="toc-number">5.1.1.</span> <span class="toc-text">创建一个数据卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除一个数据卷"><span class="toc-number">5.1.2.</span> <span class="toc-text">删除一个数据卷</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据卷容器（Data_volume_containers）"><span class="toc-number">5.2.</span> <span class="toc-text">数据卷容器（Data volume containers）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#删除数据卷容器"><span class="toc-number">5.2.1.</span> <span class="toc-text">删除数据卷容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络设置"><span class="toc-number">6.</span> <span class="toc-text">网络设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#端口映射"><span class="toc-number">6.1.</span> <span class="toc-text">端口映射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#外部访问容器"><span class="toc-number">6.1.1.</span> <span class="toc-text">外部访问容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射到指定地址的任意端口"><span class="toc-number">6.1.2.</span> <span class="toc-text">映射到指定地址的任意端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射所有接口地址"><span class="toc-number">6.1.3.</span> <span class="toc-text">映射所有接口地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射到指定地址的指定端口"><span class="toc-number">6.1.4.</span> <span class="toc-text">映射到指定地址的指定端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看映射端口配置"><span class="toc-number">6.1.5.</span> <span class="toc-text">查看映射端口配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器互联"><span class="toc-number">6.2.</span> <span class="toc-text">容器互联</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#搭建私有仓库"><span class="toc-number">7.</span> <span class="toc-text">搭建私有仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实战"><span class="toc-number">8.</span> <span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码安装Postgresql"><span class="toc-number">8.1.</span> <span class="toc-text">源码安装Postgresql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Postgresql配置（主库配置）"><span class="toc-number">8.2.</span> <span class="toc-text">Postgresql配置（主库配置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流复制环境搭建（异步流复制）"><span class="toc-number">8.3.</span> <span class="toc-text">流复制环境搭建（异步流复制）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装pgpool-II"><span class="toc-number">8.3.1.</span> <span class="toc-text">安装pgpool-II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Bucardo"><span class="toc-number">8.3.2.</span> <span class="toc-text">安装Bucardo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于Dockerfile创建(未完待续)"><span class="toc-number">8.4.</span> <span class="toc-text">基于Dockerfile创建(未完待续)</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>本篇笔记为docker相关。</p>
+<h1 id="Docker简介">Docker简介</h1><p><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源，项目代码在<a href="https://github.com/docker/docker" target="_blank" rel="noopener">GitHub</a>上维护。它轻巧，容易移植，号称“build once, configure once and run anywhere”。</p>
+<h2 id="基本概念">基本概念</h2><p>Docker包括三个基本的概念：</p>
+<ul>
+<li>镜像（Docker images）</li>
+<li>容器（Docker containers）</li>
+<li>仓库（Docker registries）</li>
+</ul>
+<h3 id="镜像">镜像</h3><p>镜像是一个只读模版，比如常用的ubuntu镜像，通过镜像我们可以创建容器。Docker提供了简单的方法，来创建和更新镜像，或者通过下载别人构建好的镜像。镜像是Docker的<strong>构建</strong>组件。</p>
+<h3 id="容器">容器</h3><p>容器类似于一个文件夹，它包含了应用运行所需要的所有元素。容器通过镜像创建，可以运行、启动、停止、移动和删除。每一个容器都是相互隔离、保证安全的单元。容器是Docker的<strong>运行</strong>组件。</p>
+<h3 id="仓库">仓库</h3><p>仓库是用来保存镜像的地方，用来上传下载镜像，公共的仓库是<a href="https://hub.docker.com/" target="_blank" rel="noopener">DockerHub</a>。仓库是Docker的<strong>分布式</strong>组件。</p>
+<h1 id="Docker安装">Docker安装</h1><p>根据操作系统，去<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>官方网站下载安装，这里演示的是ubuntu(版本号14.04 LTS)中docker的安装。</p>
+<h2 id="准备工作">准备工作</h2><p>Docker需要64位的操作系统，并且Linux内核版本号最小为3.10。我们可以输入以下命令，查看内核版本。当然我们使用的ubuntu版本号为14.04 LTS满足这一条件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ uname -r</span><br></pre></td></tr></table></figure>
+<h3 id="更新apt源">更新apt源</h3><ul>
+<li>使用root账户登录系统，输入密码</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh root@192.168.20.127</span><br></pre></td></tr></table></figure>
+<ul>
+<li>登录成功后，输入一下命令更新</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure>
+<ul>
+<li>新增一个GPG key</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用vim编辑/etc/apt/sources.list.d/docker.list，如果文件里面有内容先清空，然后按一下i键进入编辑状态，输入以下内容</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb https://apt.dockerproject.org/repo ubuntu-trusty main</span><br></pre></td></tr></table></figure>
+<p>按一下esc按键，输入:wq保存。</p>
+<ul>
+<li>更新APT包索引</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+<ul>
+<li>清除旧的repo（如果存在的话）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get purge lxc-docker</span><br></pre></td></tr></table></figure>
+<ul>
+<li>核对APT仓库是否正确</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-cache policy docker-engine</span><br></pre></td></tr></table></figure>
+<h3 id="安装Docker">安装Docker</h3><ul>
+<li>更新</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装推荐包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装Docker</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动Docker</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service docker start</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看Docker是否安装成功</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+<h1 id="使用Docker">使用Docker</h1><p><img src="/images/docker hello world.png" alt="docker-hello-world"></p>
+<p>如图所示为上一步命令，执行docker run显示的结果。Docker运行容器前需要本地存在对应的镜像，如果本地不存在这个镜像，Docker会从镜像仓库下载（默认是 Docker Hub 公共注册服务器中的仓库）。以下简单介绍一下一些常用命令的用法。</p>
+<h2 id="获取镜像（docker_pull）">获取镜像（docker pull）</h2><p>docker pull用来从仓库中下载镜像，我们使用如下命令下载ubuntu 16.04操作系统的镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull ubuntu:16.04</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker pull.png" alt="docker pul"><br>这条命令其实相当于<code>$ sudo docker pull registry.hub.docker.com/ubuntu:16.04</code>，也就是从注册服务器registry.hub.docker.com 中的 ubuntu 仓库来下载标记为 16.04 的镜像。<br>由于网络的原因，官方仓库注册服务器下载镜像较慢，我们可以选择一些其他的仓库下载。比如下面的这条命令，从daocloud下载。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull daocloud.io/library/ubuntu:precise-20160819</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker pull daocloud.png" alt="docker pull daocloud"></p>
+<h2 id="列出本地镜像（docker_images）">列出本地镜像（docker images）</h2><p>docker images命令用于显示本地所有的镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker images</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker images.png" alt="docker images"><br>如上图所示，列出的信息中，有以下几个字段。</p>
+<ul>
+<li>REPOSITORY：标识来源于哪个仓库。</li>
+<li>TAG：镜像的标签。</li>
+<li>IMAGE ID：镜像的ID，具有唯一性。</li>
+<li>CREATED：创建时间。</li>
+<li>SIZE：镜像大小。</li>
+</ul>
+<h2 id="启动容器（docker_run）">启动容器（docker run）</h2><p>docker run命令用于新建并启动一个新的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -t -i ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker run.png" alt="docker run"><br>命令中我们通过<code>REPOSITORY+TAG</code>创建容器，也可以通过IMAGE ID创建。<code>-t</code>参数是让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上，<code>-i</code> 则让容器的标准输入保持打开。<br>在交互模式中，我们可以通过伪终端输入命令，比如<code>ls</code>。如果需要让容器在后台运行，通过<code>-d</code>参数实现。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -d ubuntu:16.04 /bin/bash -c <span class="string">'while true;do echo hello world;sleep 1;done'</span></span><br></pre></td></tr></table></figure>
+<p>docker run创建容器时，Docker在后台运行的操作如下：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+<p>我们可以通过<code>exit</code>或者<code>Ctrl+D</code>退出容器。</p>
+<p><em>注意：</em>只创建不运行容器，使用<code>docker create</code>命令。</p>
+<h2 id="查看容器（docker_ps）">查看容器（docker ps）</h2><p>docker ps用来查看容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps -a</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker ps.png" alt="docker ps"><br>命令中<code>-a</code>参数是显示所有容器的状态，包括已经停止的。</p>
+<h2 id="启动已停止的容器（docker_start）">启动已停止的容器（docker start）</h2><p>根据容器的ID或者NAMES，我们可以通过docker start命令用来启动那些已经停止的容器， docker restart 命令会将一个运行态的容器终止，然后再重新启动它。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker start 8eaa796c962a</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker start.png" alt="docker start"><br>我们也可以通过添加<code>-i</code>参数进入交互模式，<code>$ sudo docker start -i 8eaa796c962a</code>。</p>
+<h2 id="停止已启动的容器（docker_stop）">停止已启动的容器（docker stop）</h2><p>根据容器的ID或者NAMES，我们可以通过docker stop命令用来停止那些已经启动的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker stop 8eaa796c962a</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker stop.png" alt="docker stop"></p>
+<h2 id="进入容器（docker_attach）">进入容器（docker attach）</h2><p>前面提到<code>docker run</code>加上<code>-d</code>参数，那么docker启动的容器将会在后台运行。这个时候，如果我们需要进入容器，进行命令行操作就需要用到<code>docker attach</code>命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker attach a17d38ee0d29</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker attach.png" alt="docker attach"><br><em>注意：</em>也可以使用<code>docker exec</code>命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker <span class="built_in">exec</span> -ti a17d38ee0d29 /bin/bash</span><br></pre></td></tr></table></figure>
+<h2 id="导出容器（docker_export）">导出容器（docker export）</h2><p>docker export可以导出本地的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker <span class="built_in">export</span> a17d38ee0d29</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker export.png" alt="docker export"></p>
+<h2 id="导入容器（docker_import）">导入容器（docker import）</h2><p>docker import可以将容器的快照导入为镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker import ubuntu.tar vapor/ubuntu:v1.0</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker import.png" alt="docker import"><br>此外，也可以通过URL以及目录路径来导入。</p>
+<h2 id="删除容器（docker_rm）">删除容器（docker rm）</h2><p>我们可以根据容器ID或者NAMES，通过docker rm命令删除处于停止状态的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rm a17d38ee0d29</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker rm.png" alt="docker r"><br>如果要强制删除某个容器，添加<code>-f</code>参数。</p>
+<h2 id="修改镜像（docker_commit）">修改镜像（docker commit）</h2><p>我们知道镜像是只读的，不能修改，所以所谓修改镜像其实是新建一个镜像。<br>我们可以根据容器ID或者NAMES，通过docker commit命令创建新的镜像。<br>我们先用<code>docker start</code>命令启动一个已停止的镜像，然后在容器/home目录下添加一个名为vapor.txt文件。退出后执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker commit -m <span class="string">"Add vapor.txt"</span> -a <span class="string">"Chen Peng"</span> 8eaa796c962a vapor/ubuntu:v2</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker commit.png" alt="docker commit"><br><code>-m</code>参数用来说明提交的信息，<code>-a</code>参数用来说明提交者的信息，之后是容器的ID，最后是目标镜像的仓库名和TAG信息。创建成功之后返回新镜像的ID。</p>
+<p>我们现在来通过新建的镜像，启动容器，查看这个容器中是否有vapor.txt这个文件。<br><img src="/images/docker commit check.png" alt="docker commit check"></p>
+<h2 id="Dockerfile">Dockerfile</h2><p>docker commit命令扩展镜像比较简单，然而弊端在于不是很方便，docker提供了另一个命令<code>docker build</code>结合Dockerfile构建镜像。<br>新建一个名为vapor的文件夹，在文件夹中新建一个名为Dockerfile的文件，并输入以下内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># this one called &apos;ZhuShi&apos;</span><br><span class="line">FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">MAINTAINER Chen Peng &lt;345787252@qq.com&gt;</span><br><span class="line"></span><br><span class="line">RUN apt-get update</span><br><span class="line"></span><br><span class="line">RUN apt-get -y install vim</span><br></pre></td></tr></table></figure>
+<p>更多Dockerfile指令请查看官网文档。</p>
+<p>然后我们执行以下命令构建镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker build -t=<span class="string">"vapor/ubuntu:v3"</span> .</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker build.png" alt="docker build"><br><code>-t</code>参数用来添加tag，指定新的镜像的用户信息。“.”是 Dockerfile所在的路径（当前目录），也可以替换为一个具体的 Dockerfile 的路径。<br>构建完毕，我们执行<code>docker images</code>查看一下。<br><img src="/images/docker build check.png" alt="docker build check"></p>
+<h2 id="存出镜像（docker_save）">存出镜像（docker save）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker save -o ubuntu_16.04.tar ubuntu:16.04</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker save.png" alt="docker save"></p>
+<h2 id="载入镜像（docker_load）">载入镜像（docker load）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker load &lt; ubuntu_16.04.tar</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker load.png" alt="docker load"></p>
+<h2 id="删除镜像（docker_rmi）">删除镜像（docker rmi）</h2><p>docker rmi用于删除本地镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rmi d573ad7d81cf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker rmi.png" alt="docker rmi"><br><em>注意：</em>如果待删除的镜像有启动容器的话，这个镜像是不能删除的。当然，我们也可以加上<code>-f</code>参数，强行删除。</p>
+<h1 id="Docker_Hub">Docker Hub</h1><p><a href="https://hub.docker.com" target="_blank" rel="noopener">Docker Hub</a>是docker官方维护的仓库，里面有很多现成的docker镜像，其实拥有official标识的是官方的镜像，可以放心使用。<br><img src="/images/docker hub.png" alt="docker hub"></p>
+<h2 id="查询镜像（docker_search）">查询镜像（docker search）</h2><p>通过docker search，我们可以查找相关的镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker search</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker search.png" alt="docker search"><br>我们可以看到很多nginx相关的镜像，其实第一个是官方的镜像。然后，我们就可以使用前面提到的<code>docker pull</code>命令进行下载了。</p>
+<h2 id="登录注册（docker_login）">登录注册（docker login）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker login</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker login.png" alt="docker login"><br>我之前注册过了，所以直接演示就登录了。</p>
+<h2 id="上传镜像（docker_push）">上传镜像（docker push）</h2><p>在<code>docker push</code>之前，我们需要先使用<code>docker tag</code>将需要上传的镜像标签改一下，改成我的用户名，这样才能上传到我的docker hub私有仓库中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker push chenpeng/ubuntu:v2</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker push.png" alt="docker push"></p>
+<h1 id="数据管理">数据管理</h1><p>Docker容器内部以及容器之间的数据管理，主要有两种方式：</p>
+<ol>
+<li>数据卷（Data volumes）</li>
+<li>数据卷容器（Data volume containers）</li>
+</ol>
+<h2 id="数据卷（Data_volumes）">数据卷（Data volumes）</h2><p>数据卷是一个可供一个或者多个容器使用的特殊目录，有如下的特性：</p>
+<ol>
+<li>数据卷可以在容器之间共享和重用</li>
+<li>对数据卷的修改会立即生效</li>
+<li>对数据卷的更新不会影响到镜像</li>
+<li>数据卷默认会一直存在，即使容器被删除<br><em>注意：</em>数据卷的使用类似Linux下mount目录或者文件，镜像中的被指定为挂载点的目录中的文件会隐藏掉，能显示看的是挂载的数据卷。</li>
+</ol>
+<h3 id="创建一个数据卷">创建一个数据卷</h3><p>在创建之前，先将之前存在的相关容器以及镜像删除，只留下tag为ubuntu:16.04的镜像。</p>
+<p>运行<code>docker run</code>命令，添加<code>-v</code>参数创建一个数据卷。（多次添加<code>-v</code>参数即可创建多个数据卷）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -it -v /vapor_test  ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker volumes.png" alt="docker volumes"><br>如图所示，在执行命令后，我进入vapor_test数据卷，新建了名为vapor.txt文件。然后调用了<code>docker inspect</code>命令，查看容器挂载的数据卷在本地系统中的路径。<br>现在我们在本地系统中，查看一下。<br><img src="/images/docker volumes check.png" alt="docker volumes check"><br>可以看到在我们的本地系统中，是存在这个文件的。</p>
+<h3 id="删除一个数据卷">删除一个数据卷</h3><p>删除容器的时候，数据卷是不会随之删除的，我们需要加上<code>-v</code>参数，进行显示地删除。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rm -v 422290dac597</span><br></pre></td></tr></table></figure>
+<p><strong><em>注意：</em></strong>我们也可以加载本地系统的文件到容器中作为数据卷，但是这种做法官方并不支持，所以这里就不演示了。</p>
+<h2 id="数据卷容器（Data_volume_containers）">数据卷容器（Data volume containers）</h2><p>数据卷容器是一个用来容器之前共享数据的普通容器。我们先来创建一个容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -it -v /vapor_data --name vapor_data ubuntu:16.04</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker volumes container create.png" alt="docker volumes container create"><br>在vapor_data数据卷下，建立名为vapor.txt的文件。</p>
+<p>现在，我们通过添加<code>--volumes-from</code>参数来挂载vapor_data容器中的数据卷。（多次添加<code>--volumes-from</code>参数即可挂载多个数据卷）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -it --volumes-from vapor_data --name vapor1 ubuntu:16.04</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker volumes container 1.png" alt="docker volumes container 1"><br>如图所示，我们可以看到vapor_data数据卷中名为vapor.txt的文件。</p>
+<p>现在，我们再创建一个容器，使用同一个数据卷容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -it --volumes-from vapor_data --name vapor2 ubuntu:16.04</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker volumes container 2.png" alt="docker volumes container 2"><br>如图所示，vapor1容器修改的数据，确实可以在vapor2容器中看到。</p>
+<p><strong>注意：</strong>使用<code>--volumes-from</code>参数挂载的数据卷并不需要处于运行状态。</p>
+<h3 id="删除数据卷容器">删除数据卷容器</h3><p>删除挂载数据卷容器的时候，数据卷是不会随之删除的，我们需要在<strong>删除最后一个挂载该数据卷的容器</strong>时，加上<code>-v</code>参数，进行显示地删除。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rm -v 6533cccdb3c7</span><br></pre></td></tr></table></figure>
+<h1 id="网络设置">网络设置</h1><p>Docker提供映射容器端口到宿主主机和容器互联机制来为容器提供网络服务。</p>
+<h2 id="端口映射">端口映射</h2><p>容器启动的时候，如果不设置相关参数，那么容器外部是无法通过网络访问容器内部的。</p>
+<h3 id="外部访问容器">外部访问容器</h3><p>执行<code>docker run</code>命令的时候，加上<code>-P</code>参数，Docker会随机映射一个端口到容器内部开放的网络端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -i -t -P --expose 5000 ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>然后使用<code>docker ps -a</code>命令查看，可以看到主机的32778端口映射到了容器的5000端口。<br><img src="/images/docker -P-1.png" alt="docker -P"></p>
+<p>执行<code>docker run</code>命令的时候，加上<code>-p</code>参数，按照以下三种格式指定映射端口。(可以使用多个<code>-p</code>参数绑定多个端口)</p>
+<ul>
+<li>ip::containerPort</li>
+<li>hostPort:containerPort</li>
+<li>ip:hostPort:containerPort</li>
+</ul>
+<h3 id="映射到指定地址的任意端口">映射到指定地址的任意端口</h3><p>方便起见，我们先用<code>docker rm</code>删除之前创建的容器。<br>使用ip::containerPort格式绑定localhost的任意端口到容器5000端口，本地主机会自动分配一个端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -i -t -p 127.0.0.1::5000 ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker -p 1.png" alt="docker -p 1"></p>
+<h3 id="映射所有接口地址">映射所有接口地址</h3><p>方便起见，我们先用<code>docker rm</code>删除之前创建的容器。<br>使用hostPort:containerPort格式将本地的5000端口映射到容器的5000端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -i -t -p 5000:5000 ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker -p 2.png" alt="docker -p 2"></p>
+<h3 id="映射到指定地址的指定端口">映射到指定地址的指定端口</h3><p>方便起见，我们先用<code>docker rm</code>删除之前创建的容器。<br>使用ip:hostPort:containerPort格式将本地的5000端口映射到容器的5000端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -i -t -p 127.0.0.1:5000:5000 ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker -p 3.png" alt="docker -p 3"></p>
+<h3 id="查看映射端口配置">查看映射端口配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker port eda6237d6ec2</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker port.png" alt="docker port"></p>
+<h2 id="容器互联">容器互联</h2><p>方便起见，我们先用<code>docker rm</code>删除之前创建的容器。</p>
+<p>使用<code>--link</code>参数可以让容器之间安全地进行交互，该参数的格式为–link name:alias，其中name是要连接的容器名称，alias是这个链接的别名。<br>先创建一个叫做db的容器，意为数据库容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -i -t --name db ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>再创建一个叫做web的容器，意为网页容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -i -t --name web --link db:db ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker link.png" alt="docker link"><br>通过查看hosts文件，我们看到里面有db的相关信息，那么我们来ping一下这个db。<br><img src="/images/docker ping.png" alt="docker ping"><br><strong>注意：</strong>镜像没有预安装ping，需要自行安装<code>sudo apt-get install inetutils-ping</code>。我们也可以链接多个web容器到db上。</p>
+<h1 id="搭建私有仓库">搭建私有仓库</h1><p>方便起见，我们先用<code>docker rm</code>删除之前创建的容器。</p>
+<p>有时候，我们需要有个自己的仓库，用于内部人员之间使用镜像。我们可以使用官方提供的registry镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -d -p 5000:5000 --name registry registry:2</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker registry.png" alt="docker registry"></p>
+<p>我们现在将本地的ubuntu镜像修改一下名称，通过<code>docker push</code>命令上传到registry上。然后再通过<code>docker pull</code>命令下载，以此来检测registry是否成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker tag ubuntu:16.04 localhost:5000/myfirstimage</span><br><span class="line">$ sudo docker push localhost:5000/myfirstimage</span><br><span class="line">$ sudo docker pull localhost:5000/myfirstimage</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker registry pull.png" alt="docker registry pul"></p>
+<h1 id="实战">实战</h1><p>PostgreSQL异步流复制Pg-pool高可用集群集成Bucardo双向同步环境搭建。<br>先杀死所有正在运行的容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker <span class="built_in">kill</span> $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+<p>删除所有已经停止的容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rm $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+<p>删除所有镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rmi $(docker images -q)</span><br></pre></td></tr></table></figure>
+<h2 id="源码安装Postgresql">源码安装Postgresql</h2><p>重新获取ubuntu镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker pull ubuntu:16.04</span><br><span class="line">$ sudo docker run -it ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>启动容器之后，安装常用软件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get update</span><br><span class="line">$ apt-get install sudo</span><br><span class="line">$ apt-get -y install vim</span><br></pre></td></tr></table></figure>
+<p>添加名为postgres的新用户，加入sudo权限。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ adduser postgres</span><br><span class="line">$ vim /etc/sudoers</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-1.png" alt="docker-pgsql-install-1"></p>
+<p>切换到postgres用户。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>su postgres</span><br></pre></td></tr></table></figure>
+<p>切换用户到Postgres用户之后，执行以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get -y install build-essential libreadline6-dev zlib1g-dev libperl-dev python-dev bison flex wget</span><br><span class="line">$ mkdir /home/postgres/downloads &amp;&amp; <span class="built_in">cd</span> /home/postgres/downloads</span><br><span class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.4/postgresql-9.5.4.tar.gz</span><br><span class="line">$ tar zxvf postgresql-9.5.4.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> postgres-9.5.4</span><br><span class="line">$ ./configure --with-perl --with-python </span><br><span class="line">$ sudo make &amp;&amp; sudo make install</span><br><span class="line">$ mkdir /home/postgres/pg_data</span><br><span class="line">$ sudo vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-2.png" alt="docker-pgsql-install-2"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="built_in">source</span> /etc/profile</span><br><span class="line">$ sudo chown -R postgres <span class="variable">$PGDATA</span></span><br><span class="line">$ sudo chmod 0700 <span class="variable">$PGDATA</span></span><br><span class="line">$ sudo chown -R postgres <span class="variable">$PGHOME</span></span><br><span class="line">$ sudo chmod 0700 <span class="variable">$PGHOME</span></span><br></pre></td></tr></table></figure>
+<p>退出容器后，将容器保存为新的镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker commit -m <span class="string">"vapor postgres:v1"</span> -a <span class="string">"Chen Peng"</span> 0e9571e4a4c4 vapor/postgres:v1</span><br></pre></td></tr></table></figure>
+<h2 id="Postgresql配置（主库配置）">Postgresql配置（主库配置）</h2><p>重新启动容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker start -i 0e9571e4a4c4</span><br></pre></td></tr></table></figure>
+<p>进入容器之后，执行以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ su postgres</span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br><span class="line">$ initdb</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/downloads/postgresql-9.5.4/contrib</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
+<p>修改配置文件，修改监听IP和端口以及日志配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /home/postgres/pg_data/postgresql.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-3.png" alt="docker-pgsql-install-3"></p>
+<p><img src="/images/docker-pgsql-install-4.png" alt="docker-pgsql-install-4"></p>
+<p>修改postgresql的网络配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /home/postgres/pg_data/pg_hba.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-5-1.png" alt="docker-pgsql-install-5"></p>
+<p>退出容器后，将容器保存为新的镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker commit -m <span class="string">"vapor postgres:v2"</span> -a <span class="string">"Chen Peng"</span> 0e9571e4a4c4 vapor/postgres:v2</span><br></pre></td></tr></table></figure>
+<h2 id="流复制环境搭建（异步流复制）">流复制环境搭建（异步流复制）</h2><p>重新启动容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker start -i 0e9571e4a4c4</span><br></pre></td></tr></table></figure>
+<p>进入容器之后，执行以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ su postgres</span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br><span class="line">$ sudo apt-get -y install net-tools inetutils-ping</span><br><span class="line">$ ifconfig</span><br><span class="line">$ ping 172.17.0.1</span><br></pre></td></tr></table></figure>
+<p>postgresql主库的配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /home/postgres/pg_data/pg_hba.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-6.png" alt="docker-pgsql-install-6"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /home/postgres/pg_data/postgresql.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-7.png" alt="docker-pgsql-install-7"></p>
+<p><img src="/images/docker-pgsql-install-8.png" alt="docker-pgsql-install-8"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ pg_ctl start</span><br><span class="line">$ psql</span><br><span class="line">$ alter user postgres with password <span class="string">'123456'</span>;</span><br><span class="line">$ \q</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-9.png" alt="docker-pgsql-install-9"></p>
+<p>新开窗口，启动一个名为pg_slave的容器，作为从库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -it --name=<span class="string">'pg_slave'</span> vapor/postgres:v2 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>进入容器后，输入以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ su postgres</span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/pg_data/</span><br><span class="line">$ rm -rf *</span><br><span class="line">$ pg_basebackup -h 172.17.0.2 -U postgres -F p -P -x -D <span class="variable">$PGDATA</span></span><br><span class="line">$ cp /usr/<span class="built_in">local</span>/pgsql/share/recovery.conf.sample <span class="variable">$PGDATA</span>/recovery.conf</span><br><span class="line">$ vim /home/postgres/pg_data/recovery.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-10.png" alt="docker-pgsql-install-10"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim <span class="variable">$PGDATA</span>/postgresql.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-11.png" alt="docker-pgsql-install-11-w1564"></p>
+<p>主从两容器将postgresql配置为开机启动。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cp /home/postgres/downloads/postgresql-9.5.4/contrib/start-scripts/linux /etc/init.d/postgresql</span><br><span class="line">$ sudo vim /etc/init.d/postgresql</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-12.png" alt="docker-pgsql-install-12"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod +x /etc/init.d/postgresql</span><br><span class="line">$ sudo update-rc.d postgresql defaults</span><br></pre></td></tr></table></figure>
+<p>在主库容器中创建数据库，在从库中查看，如果从库中有主库创建的数据库，那么搭建成功。</p>
+<h3 id="安装pgpool-II">安装pgpool-II</h3><p>打开新窗口，使用vapor/postgres:v1镜像启动一个新的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -it --name=<span class="string">'pg_pool'</span> vapor/postgres:v1 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>进入容器后，执行以下步骤。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get update</span><br><span class="line">$ apt-get install -y wget</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/downloads</span><br><span class="line">$ wget http://www.pgpool.net/mediawiki/images/pgpool-II-3.5.4.tar.gz</span><br><span class="line">$ tar -zxvf pgpool-II-3.5.4.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/downloads/pgpool-II-3.5.4/</span><br><span class="line">$ ./configure --prefix=/home/postgres/pgpool</span><br><span class="line">$ make &amp;&amp; make install</span><br><span class="line">$ vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-13.png" alt="docker-pgsql-install-13"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/pgpool/etc/</span><br><span class="line">$ chown -R postgres /home/postgres/pgpool/</span><br><span class="line">$ cp pgpool.conf.sample pgpool.conf</span><br><span class="line">$ cp pcp.conf.sample pcp.conf</span><br><span class="line">$ cp pool_hba.conf.sample pool_hba.conf</span><br><span class="line">$ pg_md5 123456</span><br><span class="line">$ pg_md5 -m -p -u postgres pool_passwd</span><br><span class="line">$ vim pcp.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-14.png" alt="docker-pgsql-install-14"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim pool_hba.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-15.png" alt="docker-pgsql-install-15"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim pgpool.conf</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-16.png" alt="docker-pgsql-install-16"></p>
+<p><img src="/images/docker-pgsql-install-17.png" alt="docker-pgsql-install-17"></p>
+<p><img src="/images/docker-pgsql-install-18.png" alt="docker-pgsql-install-18"></p>
+<p><img src="/images/docker-pgsql-install-19.png" alt="docker-pgsql-install-19"></p>
+<p><img src="/images/docker-pgsql-install-20.png" alt="docker-pgsql-install-20"></p>
+<p><img src="/images/docker-pgsql-install-21.png" alt="docker-pgsql-install-21"></p>
+<p><img src="/images/docker-pgsql-install-22.png" alt="docker-pgsql-install-22"></p>
+<p>切换至另外两个容器，执行以下操作。<br>创建.pgpass，主库写备库的IP，备库写主库的IP。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span></span><br><span class="line">$ sudo vim .pgpass</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-23.png" alt="docker-pgsql-install-23"></p>
+<p>安装pgpool的相关函数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -y wget</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/downloads</span><br><span class="line">$ wget http://www.pgpool.net/mediawiki/images/pgpool-II-3.5.4.tar.gz</span><br><span class="line">$ tar -zxvf pgpool-II-3.5.4.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/downloads/pgpool-II-3.5.4/src/sql/pgpool-regclass</span><br><span class="line">$ make </span><br><span class="line">$ make install</span><br><span class="line">$ psql -f pgpool-regclass.sql template1(只在主库中操作)</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/downloads/pgpool-II-3.5.4/src/sql/pgpool-recovery</span><br><span class="line">$ make </span><br><span class="line">$ make install </span><br><span class="line">$ psql -f pgpool-recovery.sql template1(只在主库中操作)</span><br></pre></td></tr></table></figure>
+<p>在pgpool容器中，启动pgpool。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pgpool</span><br></pre></td></tr></table></figure>
+<p>在主库容器中，使用命令行连接pgpool，创建数据库，测试一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ psql -h 172.17.0.4 -p 9999 -U postgres</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-24.png" alt="docker-pgsql-install-24"></p>
+<h3 id="安装Bucardo">安装Bucardo</h3><p>打开新的窗口，启动新的名为pg_sync的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it --name=<span class="string">'pg_sync'</span> vapor/postgres:v2 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>容器启动后，执行以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install -y libdbix-safe-perl</span><br><span class="line">$ apt-get install -y libdbi-perl</span><br><span class="line">$ apt-get install -y libdbd-pg-perl</span><br><span class="line">$ apt-get install -y libtest-simple-perl</span><br><span class="line">$ apt-get install -y libboolean-perl</span><br><span class="line">$ <span class="built_in">cd</span> /home/postgres/downloads</span><br><span class="line">$ wget https://bucardo.org/downloads/Bucardo-5.4.1.tar.gz</span><br><span class="line">$ tar zxvf Bucardo-5.4.1.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> Bucardo-5.4.1</span><br><span class="line">$ perl Makefile.PL</span><br><span class="line">$ make</span><br><span class="line">$ sudo make install</span><br><span class="line">$ apt-get install -y postgresql-plperl-9.5</span><br><span class="line">$ mkdir -p /var/run/bucardo</span><br><span class="line">$ su postgres</span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br><span class="line">$ pg_ctl start</span><br><span class="line">$ psql</span><br></pre></td></tr></table></figure>
+<p>创建名为vapor_test的数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bucardo install</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span></span><br><span class="line">$ vim .bucardorc</span><br></pre></td></tr></table></figure>
+<p><img src="/images/docker-pgsql-install-25.png" alt="docker-pgsql-install-25"></p>
+<p><img src="/images/docker-pgsql-install-26.png" alt="docker-pgsql-install-26"></p>
+<p>执行bucardo install建立bucardo的数据库,并在此库中存放Bucardo的元数据。<br>建库sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> vapor_test;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> vapor_ceshi;</span><br></pre></td></tr></table></figure>
+<p>创建序列sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">sequence</span> member_id_seq </span><br><span class="line">	<span class="keyword">increment</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">start</span> <span class="number">1</span></span><br><span class="line">	<span class="keyword">minvalue</span> <span class="number">1</span></span><br><span class="line">	maxvalue <span class="number">1000000000000</span></span><br><span class="line">	<span class="keyword">cache</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>建表sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">member</span>(<span class="keyword">id</span> <span class="built_in">bigint</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">nextval</span>(<span class="string">'member_id_seq'</span>),</span><br><span class="line"><span class="keyword">CONSTRAINT</span> member_id_pk PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line"><span class="keyword">name</span> <span class="built_in">text</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ bucardo install </span><br><span class="line">$ bucardo add db source_db dbhost=127.0.0.1 dbport=5432 dbname=vapor_test dbuser=postgres dbpass=123456</span><br><span class="line">$ bucardo add db dest_db dbhost=127.0.0.1 dbport=5432 dbname=vapor_ceshi dbuser=postgres dbpass=123456</span><br><span class="line">$ bucardo add table member db=source_db --herd=vapor_herd --verbose</span><br><span class="line">$ bucardo add all sequences db=source_db --herd=vapor_herd --verbose</span><br><span class="line">$ bucardo add herd vapor_herd member</span><br><span class="line">$ bucardo add sync vapor_sync relgroup=vapor_herd dbs=source_db:<span class="built_in">source</span>,dest_db:target </span><br><span class="line">$ bucardo update sync vapor_sync onetimecopy=2</span><br><span class="line">$ sudo mkdir /var/<span class="built_in">log</span>/bucardo &amp;&amp; <span class="built_in">cd</span> /var/<span class="built_in">log</span>/bucardo</span><br><span class="line">$ sudo touch log.bucardo</span><br><span class="line">$ sudo bucardo start -U postgres -P 123456 -d bucardo -h 127.0.0.1 -p 5432</span><br></pre></td></tr></table></figure>
+<p>插入数据至vapor_test库中的member表，查看vapor_ceshi库中的member表，验证数据是否同步。</p>
+<h2 id="基于Dockerfile创建(未完待续)">基于Dockerfile创建(未完待续)</h2><p>在宿主主机中建立文件夹vapor_postgresql，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span></span><br><span class="line">$ mkdir vapor_postgresql &amp;&amp; <span class="built_in">cd</span> vapor_postgresql</span><br><span class="line">$ vim Dockerfile</span><br></pre></td></tr></table></figure>
+<p>Dockerfile内容：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一行必须指定基于的基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">16.04</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 维护者信息</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> chenpeng <span class="number">345787252</span>@qq.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定一个环境变量，供后续RUN指令使用。</span></span><br><span class="line"><span class="keyword">ENV</span> PG_MAJOR <span class="number">9.5</span></span><br><span class="line"><span class="keyword">ENV</span> PG_VERSION <span class="number">9.5</span>.<span class="number">4</span></span><br><span class="line"><span class="keyword">ENV</span> PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH</span><br><span class="line"><span class="keyword">ENV</span> PGDATA /var/lib/postgresql/data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在终端中执行命令</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> groupadd -r postgres --gid=999 &amp;&amp; useradd -r -g postgres --uid=999 postgres</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install wget &amp;&amp; apt-get install sudo </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir /docker-entrypoint-initdb.d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建挂载点</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /home/postgres/pg_data</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># COPY &lt;src&gt; &lt;dest&gt;。复制指定的&lt;src&gt;（为Dockerfile所在目录的相对路径、文件或目录）为容器中的&lt;dest&gt;。</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> docker-entrypoint.sh /</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置容器启动后执行的命令，并且不可被docker run提供的参数覆盖。每个Dockerfile只能有一条，如果指定多个，只有最后一条会执行。</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"/docker-entrypoint.sh"</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露端口号</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">5432</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定容器启动后运行的命令，每个Dockerfile只能有一条。如果指定多个，只有最后一条会执行。</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"postgres"</span>]</span></span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/docker/">docker</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://chenpeng.github.io/2016/08/30/dock笔记/" data-title="Docker笔记 | 养只阿柴捏脸玩" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2019/11/12/yuque/个人博客搭建/" title="个人博客搭建">
+  <strong>上一篇：</strong><br/>
+  <span>
+  个人博客搭建</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/08/17/IntelliJ-IDEA使用教程：初体验/"  title="IntelliJ IDEA使用教程：初体验">
+ <strong>下一篇：</strong><br/> 
+ <span>IntelliJ IDEA使用教程：初体验
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker简介"><span class="toc-number">1.</span> <span class="toc-text">Docker简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#镜像"><span class="toc-number">1.1.1.</span> <span class="toc-text">镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#容器"><span class="toc-number">1.1.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#仓库"><span class="toc-number">1.1.3.</span> <span class="toc-text">仓库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker安装"><span class="toc-number">2.</span> <span class="toc-text">Docker安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.1.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更新apt源"><span class="toc-number">2.1.1.</span> <span class="toc-text">更新apt源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Docker"><span class="toc-number">2.1.2.</span> <span class="toc-text">安装Docker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Docker"><span class="toc-number">3.</span> <span class="toc-text">使用Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#获取镜像（docker_pull）"><span class="toc-number">3.1.</span> <span class="toc-text">获取镜像（docker pull）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列出本地镜像（docker_images）"><span class="toc-number">3.2.</span> <span class="toc-text">列出本地镜像（docker images）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动容器（docker_run）"><span class="toc-number">3.3.</span> <span class="toc-text">启动容器（docker run）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看容器（docker_ps）"><span class="toc-number">3.4.</span> <span class="toc-text">查看容器（docker ps）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动已停止的容器（docker_start）"><span class="toc-number">3.5.</span> <span class="toc-text">启动已停止的容器（docker start）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#停止已启动的容器（docker_stop）"><span class="toc-number">3.6.</span> <span class="toc-text">停止已启动的容器（docker stop）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进入容器（docker_attach）"><span class="toc-number">3.7.</span> <span class="toc-text">进入容器（docker attach）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导出容器（docker_export）"><span class="toc-number">3.8.</span> <span class="toc-text">导出容器（docker export）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导入容器（docker_import）"><span class="toc-number">3.9.</span> <span class="toc-text">导入容器（docker import）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除容器（docker_rm）"><span class="toc-number">3.10.</span> <span class="toc-text">删除容器（docker rm）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改镜像（docker_commit）"><span class="toc-number">3.11.</span> <span class="toc-text">修改镜像（docker commit）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile"><span class="toc-number">3.12.</span> <span class="toc-text">Dockerfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存出镜像（docker_save）"><span class="toc-number">3.13.</span> <span class="toc-text">存出镜像（docker save）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#载入镜像（docker_load）"><span class="toc-number">3.14.</span> <span class="toc-text">载入镜像（docker load）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除镜像（docker_rmi）"><span class="toc-number">3.15.</span> <span class="toc-text">删除镜像（docker rmi）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker_Hub"><span class="toc-number">4.</span> <span class="toc-text">Docker Hub</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查询镜像（docker_search）"><span class="toc-number">4.1.</span> <span class="toc-text">查询镜像（docker search）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#登录注册（docker_login）"><span class="toc-number">4.2.</span> <span class="toc-text">登录注册（docker login）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上传镜像（docker_push）"><span class="toc-number">4.3.</span> <span class="toc-text">上传镜像（docker push）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据管理"><span class="toc-number">5.</span> <span class="toc-text">数据管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据卷（Data_volumes）"><span class="toc-number">5.1.</span> <span class="toc-text">数据卷（Data volumes）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个数据卷"><span class="toc-number">5.1.1.</span> <span class="toc-text">创建一个数据卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除一个数据卷"><span class="toc-number">5.1.2.</span> <span class="toc-text">删除一个数据卷</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据卷容器（Data_volume_containers）"><span class="toc-number">5.2.</span> <span class="toc-text">数据卷容器（Data volume containers）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#删除数据卷容器"><span class="toc-number">5.2.1.</span> <span class="toc-text">删除数据卷容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络设置"><span class="toc-number">6.</span> <span class="toc-text">网络设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#端口映射"><span class="toc-number">6.1.</span> <span class="toc-text">端口映射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#外部访问容器"><span class="toc-number">6.1.1.</span> <span class="toc-text">外部访问容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射到指定地址的任意端口"><span class="toc-number">6.1.2.</span> <span class="toc-text">映射到指定地址的任意端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射所有接口地址"><span class="toc-number">6.1.3.</span> <span class="toc-text">映射所有接口地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射到指定地址的指定端口"><span class="toc-number">6.1.4.</span> <span class="toc-text">映射到指定地址的指定端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看映射端口配置"><span class="toc-number">6.1.5.</span> <span class="toc-text">查看映射端口配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器互联"><span class="toc-number">6.2.</span> <span class="toc-text">容器互联</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#搭建私有仓库"><span class="toc-number">7.</span> <span class="toc-text">搭建私有仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实战"><span class="toc-number">8.</span> <span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码安装Postgresql"><span class="toc-number">8.1.</span> <span class="toc-text">源码安装Postgresql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Postgresql配置（主库配置）"><span class="toc-number">8.2.</span> <span class="toc-text">Postgresql配置（主库配置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流复制环境搭建（异步流复制）"><span class="toc-number">8.3.</span> <span class="toc-text">流复制环境搭建（异步流复制）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装pgpool-II"><span class="toc-number">8.3.1.</span> <span class="toc-text">安装pgpool-II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Bucardo"><span class="toc-number">8.3.2.</span> <span class="toc-text">安装Bucardo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于Dockerfile创建(未完待续)"><span class="toc-number">8.4.</span> <span class="toc-text">基于Dockerfile创建(未完待续)</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/logo/" title="logo">logo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IntelliJ-IDEA/" title="IntelliJ IDEA">IntelliJ IDEA<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/汇编/" title="汇编">汇编<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://chenpeng.github.com" target="_blank" title="Blog">Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Chen Peng. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
+		
+		<a href="/about" target="_blank" title="Chen Peng">Chen Peng</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
