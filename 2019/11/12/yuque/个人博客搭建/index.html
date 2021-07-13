@@ -1,0 +1,501 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  
+    <title>个人博客搭建 | 养只阿柴捏脸玩</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Chen Peng">
+    
+
+    
+    <meta name="description" content="春去秋来，寒来暑往，时光流走，四季更替。距离上次更新博客，竟已过去 3 年多。这次疫情倒是让原本紧张的生活节奏，略微降了下来。于是乎想起了我在几年前，还是个小萌新的时候，雄心勃勃要坚持写博客。还好因为穷，买不起新的 MacBook，在“访达”的角落里找到了名为 blog 的文件夹。折腾了几天，总算复活了个人博客。想了想，以后没准还会折腾一遭，遂趁机做个记录，总结一下。 框架hexohexo是一个快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人博客搭建">
+<meta property="og:url" content="http://chenpeng.github.io/2019/11/12/yuque/个人博客搭建/index.html">
+<meta property="og:site_name" content="养只阿柴捏脸玩">
+<meta property="og:description" content="春去秋来，寒来暑往，时光流走，四季更替。距离上次更新博客，竟已过去 3 年多。这次疫情倒是让原本紧张的生活节奏，略微降了下来。于是乎想起了我在几年前，还是个小萌新的时候，雄心勃勃要坚持写博客。还好因为穷，买不起新的 MacBook，在“访达”的角落里找到了名为 blog 的文件夹。折腾了几天，总算复活了个人博客。想了想，以后没准还会折腾一遭，遂趁机做个记录，总结一下。 框架hexohexo是一个快">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1582534452418-f9d71f6c-7eb3-4367-b3f0-b6dfb120c2a3.png#align=left&display=inline&height=224&name=image.png&originHeight=448&originWidth=310&size=67932&status=done&style=none&width=155">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1582537280958-215f6d4a-8b3c-465f-a0de-04a2722b2c11.png#align=left&display=inline&height=495&name=image.png&originHeight=990&originWidth=2176&size=226785&status=done&style=none&width=1088">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1582536398002-fa854858-58bb-4431-8f49-fbfedc1e1d80.png#align=left&display=inline&height=603&name=image.png&originHeight=1206&originWidth=1504&size=511682&status=done&style=none&width=752">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1582537565867-db79b2d3-6b01-4ee3-a7fd-948c951e5cee.png#align=left&display=inline&height=700&name=image.png&originHeight=1400&originWidth=2876&size=862595&status=done&style=none&width=1438">
+<meta property="og:updated_time" content="2021-07-13T09:45:49.718Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="个人博客搭建">
+<meta name="twitter:description" content="春去秋来，寒来暑往，时光流走，四季更替。距离上次更新博客，竟已过去 3 年多。这次疫情倒是让原本紧张的生活节奏，略微降了下来。于是乎想起了我在几年前，还是个小萌新的时候，雄心勃勃要坚持写博客。还好因为穷，买不起新的 MacBook，在“访达”的角落里找到了名为 blog 的文件夹。折腾了几天，总算复活了个人博客。想了想，以后没准还会折腾一遭，遂趁机做个记录，总结一下。 框架hexohexo是一个快">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1582534452418-f9d71f6c-7eb3-4367-b3f0-b6dfb120c2a3.png#align=left&display=inline&height=224&name=image.png&originHeight=448&originWidth=310&size=67932&status=done&style=none&width=155">
+
+    
+    <link rel="alternative" href="/atom.xml" title="养只阿柴捏脸玩" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="养只阿柴捏脸玩" title="养只阿柴捏脸玩"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="养只阿柴捏脸玩">养只阿柴捏脸玩</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:chenpeng.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/11/12/yuque/个人博客搭建/" title="个人博客搭建" itemprop="url">个人博客搭建</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Chen Peng" target="_blank" itemprop="author">Chen Peng</a>
+		
+  <p class="article-time">
+    <time datetime="2019-11-12T02:02:53.000Z" itemprop="datePublished"> 发表于 2019-11-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#框架"><span class="toc-number">1.</span> <span class="toc-text">框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo"><span class="toc-number">1.1.</span> <span class="toc-text">hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建"><span class="toc-number">1.1.2.</span> <span class="toc-text">新建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#_config-yml"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">_config.yml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#package-json"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">package.json</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scaffolds"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">scaffolds</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#source"><span class="toc-number">1.1.2.4.</span> <span class="toc-text">source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#themes"><span class="toc-number">1.1.2.5.</span> <span class="toc-text">themes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yuque-hexo"><span class="toc-number">1.2.</span> <span class="toc-text">yuque-hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步"><span class="toc-number">1.2.2.</span> <span class="toc-text">同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清除"><span class="toc-number">1.2.3.</span> <span class="toc-text">清除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">1.2.4.</span> <span class="toc-text">配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编辑器"><span class="toc-number">2.</span> <span class="toc-text">编辑器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#服务器"><span class="toc-number">3.</span> <span class="toc-text">服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Github_Pages"><span class="toc-number">3.1.</span> <span class="toc-text">Github Pages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github_Action"><span class="toc-number">3.2.</span> <span class="toc-text">Github Action</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>春去秋来，寒来暑往，时光流走，四季更替。距离上次更新博客，竟已过去 3 年多。<br>这次疫情倒是让原本紧张的生活节奏，略微降了下来。于是乎想起了我在几年前，还是个小萌新的时候，雄心勃勃要坚持写博客。还好因为穷，买不起新的 MacBook，在“访达”的角落里找到了名为 blog 的文件夹。折腾了几天，总算复活了个人博客。想了想，以后没准还会折腾一遭，遂趁机做个记录，总结一下。</p>
+<h1 id="框架">框架</h1><h2 id="hexo">hexo</h2><p><a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>是一个快速、简洁且高效的博客框架。当初为什么选择它当博客框架，有点记不清了，可能是当时看了<a href="https://toutiao.io" target="_blank" rel="noopener">开发者头条</a>推荐的文章。</p>
+<h3 id="安装">安装</h3><p>安装 hexo 依赖 nodejs，git。此二者安装不再赘述。<br>通过以下命令安装 hexo。<br><code>npm install -g hexo-cli</code></p>
+<h3 id="新建">新建</h3><p>安装完毕之后，通过以下命令在当前目录下新建项目。<br><code>hexo init blog-demo</code><br><code>cd blog-demo</code><br><code>npm install</code><br>执行命令完毕后，用 vs code 打开，可以看到目录结构如图所示。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1582534452418-f9d71f6c-7eb3-4367-b3f0-b6dfb120c2a3.png#align=left&amp;display=inline&amp;height=224&amp;name=image.png&amp;originHeight=448&amp;originWidth=310&amp;size=67932&amp;status=done&amp;style=none&amp;width=155" alt="image.png"></p>
+<h4 id="_config-yml">_config.yml</h4><p>其中_config.yml 是配置文件，我们可以配置很多信息。<br>比如我把 title 设置成“养只阿柴捏脸玩”，那么打开博客，映入眼帘的是大大的“养只阿柴捏脸玩”几个字。<br>因为我用的主题是<a href="http://jacman.wuchong.me/2014/11/20/how-to-use-jacman/" target="_blank" rel="noopener">jacman</a>，所以 theme 设置为“jacman”。<br>比较重要的是 deploy 的配置，因为我是发布到 github 上，所以配置是这样的。<br><code>deploy:</code><br><code>type: git</code><br><code>repository: git@github.com:chenpeng/chenpeng.github.io.git</code><br><code>branch: master</code></p>
+<h4 id="package-json">package.json</h4><p>package.json 是 node 的包文件，依赖的包都在里面。<br>因为我的博客是从语雀同步过来的，所以这里需要加上语雀的配置。<br><code>&quot;yuqueConfig&quot;: { &quot;postPath&quot;: &quot;source/_posts/yuque&quot;, &quot;cachePath&quot;: &quot;yuque.json&quot;, &quot;mdNameFormat&quot;: &quot;title&quot;, &quot;adapter&quot;: &quot;hexo&quot;, &quot;concurrency&quot;: 5, &quot;baseUrl&quot;: &quot;https://www.yuque.com/api/v2&quot;, &quot;login&quot;: &quot;yangzhiachainielianwan&quot;, &quot;repo&quot;: &quot;lvaydp&quot;, &quot;onlyPublished&quot;: false, &quot;token&quot;: &quot;xxxxxxxxxxxxxxxxxxx&quot; }</code></p>
+<h4 id="scaffolds">scaffolds</h4><p>scaffolds 是模版文件夹，提供了几个模版用来快速生成文章。<br>有需要的话，也可以自己搞几个模版留着用。</p>
+<h4 id="source">source</h4><p>source 是资源文件夹，除了<em>posts 文件夹，其他以</em>（下划线）开头或者隐藏的文件夹会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，其他文件会被拷贝过去。<br>因为有插入图片的需求，我在这个目录下建了一个“images”文件夹，用来存放图片。</p>
+<h4 id="themes">themes</h4><p>themes 是主题文件夹，我们可以自由选择自己喜欢的主题，安装到这里。<br>我用的主题是 jacman，作者照片，博客 logo 等可以在 themes/jacman/source/img 目录下替换相应的图片。更多详情参考<a href="http://jacman.wuchong.me/2014/11/20/how-to-use-jacman/" target="_blank" rel="noopener">Jacman</a>。</p>
+<h2 id="yuque-hexo">yuque-hexo</h2><h3 id="安装-1">安装</h3><p><code>npm i -g yuque-hexo</code></p>
+<h3 id="同步">同步</h3><p><code>yuque-hexo sync</code></p>
+<h3 id="清除">清除</h3><p><code>yuque-hexo clean</code><br>语雀同步的文章会在博客项目目录下生成两份文件。</p>
+<ul>
+<li>yuque.json: 从语雀 API 拉取的数据</li>
+<li>source/_posts/yuque/*.md: 生成的 md 文件</li>
+</ul>
+<h3 id="配置">配置</h3><p>需要在 package.json 增加配置，已在前文讲述，其中 token 需要在语雀后台生成。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1582537280958-215f6d4a-8b3c-465f-a0de-04a2722b2c11.png#align=left&amp;display=inline&amp;height=495&amp;name=image.png&amp;originHeight=990&amp;originWidth=2176&amp;size=226785&amp;status=done&amp;style=none&amp;width=1088" alt="image.png"></p>
+<h1 id="编辑器">编辑器</h1><p>技术人写博客，倾向于使用 markdown。我先后使用 MWeb,VS code，不过老实说手写 markdown 十分蛋疼。最后选择<a href="https://yuque.com" target="_blank" rel="noopener">语雀</a>来写，通过同步工具同步到 GitHub 上。怎一个爽字了得！</p>
+<h1 id="服务器">服务器</h1><h2 id="Github_Pages">Github Pages</h2><p>因为博客都是静态的，所以也不需要额外的服务器。GitHub pages 可以满足需求。<br>GitHub 账号注册之类的琐事就不赘述了。登录 GitHub 之后，我们需要在 Repositorys 新建一个 Repository，命名为：用户名.github.io。新建好之后，点击 Repository 的 Settings。一直往下拖动，拖到 GitHub pages 相关的地方，设置一下即可。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1582536398002-fa854858-58bb-4431-8f49-fbfedc1e1d80.png#align=left&amp;display=inline&amp;height=603&amp;name=image.png&amp;originHeight=1206&amp;originWidth=1504&amp;size=511682&amp;status=done&amp;style=none&amp;width=752" alt="image.png"><br>此时通过<a href="http://chenpeng.github.io/">http://chenpeng.github.io/</a>就可以访问到我的博客了。</p>
+<h2 id="Github_Action">Github Action</h2><p>经常手动同步，也很麻烦啊！作为一个懒人，我可不想手动搞。刚好 GitHub Action 开始公测，申请之后就可以用了。话说这玩意就是个 docker，理论上有无限可能，做一下同步简直小菜一碟。<br>我们把 blog-demo 项目上传到 github 上，仓库设置为 Private。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1582537565867-db79b2d3-6b01-4ee3-a7fd-948c951e5cee.png#align=left&amp;display=inline&amp;height=700&amp;name=image.png&amp;originHeight=1400&amp;originWidth=2876&amp;size=862595&amp;status=done&amp;style=none&amp;width=1438" alt="image.png"><br>点击“New workflow”按钮，编辑 yml 文件。我希望在 push 的时候，能自动同步语雀的文章。并且，希望每天定时同步。那么，我需要的 yml 文件可以这么写。<a href> </a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">name: Deploy Blog</span><br><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">     branches:</span><br><span class="line">       - master</span><br><span class="line">  schedule:</span><br><span class="line">    - cron: 30 9 * * *</span><br><span class="line"><span class="built_in">jobs</span>:</span><br><span class="line">  build-and-deploy:</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    steps:</span><br><span class="line">    - name: Checkout</span><br><span class="line">      uses: actions/checkout@master</span><br><span class="line"></span><br><span class="line">    - name: Build and Deploy</span><br><span class="line">      uses: chenpeng/deploy-hexo-sync-yuque-action@master</span><br><span class="line">      env:</span><br><span class="line">        GITHUB_TOKEN: <span class="variable">$&#123;&#123; secrets.BLOG_TOKEN &#125;</span>&#125;</span><br><span class="line">        BLOG_REPOSITORY: chenpeng/chenpeng.github.io <span class="comment"># The repository the action should deploy to.</span></span><br><span class="line">        BRANCH: master  <span class="comment"># The branch the action should deploy to.</span></span><br><span class="line">        PUBLISH_DIR: ./public <span class="comment"># The folder the action should deploy.</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，我这个任务名字叫“Deploy Blog”。当“push”时，出发任务。并且有个定时执行的操作。<br>再看看“jobs”，跑在最新的 ubuntu 系统上。第一步先“Checkout”master 分支，后面使用 chenpeng/deploy-hexo-sync-yuque-action@master。<br>这是个什么呢？这其实是 dockerfile，可以自己根据需要编写，有了它想咋玩咋玩。最主要的是 entrypoint.sh 文件，我们来看一看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh -l</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">REPOSITORY_PATH=<span class="string">"https://x-access-token:<span class="variable">$&#123;GITHUB_TOKEN&#125;</span>@github.com/<span class="variable">$&#123;BLOG_REPOSITORY&#125;</span>.git"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"REPOSITORY_PATH：<span class="variable">$&#123;REPOSITORY_PATH&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Installs Git and jq.</span></span><br><span class="line">apt-get update &amp;&amp; \</span><br><span class="line">apt-get install -y git &amp;&amp; \</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directs the action to the the Github workspace.</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$GITHUB_WORKSPACE</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"npm install ..."</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Clean folder ..."</span></span><br><span class="line">./node_modules/hexo/bin/hexo clean</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Sync yuque ..."</span></span><br><span class="line">./node_modules/.bin/yuque-hexo sync</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Generate file ..."</span></span><br><span class="line">./node_modules/hexo/bin/hexo generate</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$PUBLISH_DIR</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Config git ..."</span></span><br><span class="line"></span><br><span class="line">git init</span><br><span class="line">git config user.name <span class="string">"<span class="variable">$&#123;GITHUB_ACTOR&#125;</span>"</span></span><br><span class="line">git config user.email <span class="string">"<span class="variable">$&#123;GITHUB_ACTOR&#125;</span>@users.noreply.github.com"</span></span><br><span class="line">git remote add origin <span class="string">"<span class="variable">$&#123;REPOSITORY_PATH&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">git checkout --orphan <span class="variable">$BRANCH</span></span><br><span class="line"></span><br><span class="line">git add --all</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'Start Commit'</span></span><br><span class="line">git commit --allow-empty -m <span class="string">"Deploying to <span class="variable">$&#123;BRANCH&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'Start Push'</span></span><br><span class="line">git push origin <span class="string">"<span class="variable">$&#123;BRANCH&#125;</span>"</span> --force</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Deployment succesful!"</span></span><br></pre></td></tr></table></figure>
+<p>一目了然看出了，其实就是检出 blog-demo 代码，然后安装了 npm 包，同步一下语雀的文章，再提交一下。<br>完事，收工！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://chenpeng.github.io/2019/11/12/yuque/个人博客搭建/" data-title="个人博客搭建 | 养只阿柴捏脸玩" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2020/02/25/yuque/Golang学习笔记/" title="Golang学习笔记">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Golang学习笔记</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/30/dock笔记/"  title="Docker笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>Docker笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#框架"><span class="toc-number">1.</span> <span class="toc-text">框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo"><span class="toc-number">1.1.</span> <span class="toc-text">hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建"><span class="toc-number">1.1.2.</span> <span class="toc-text">新建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#_config-yml"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">_config.yml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#package-json"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">package.json</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scaffolds"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">scaffolds</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#source"><span class="toc-number">1.1.2.4.</span> <span class="toc-text">source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#themes"><span class="toc-number">1.1.2.5.</span> <span class="toc-text">themes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yuque-hexo"><span class="toc-number">1.2.</span> <span class="toc-text">yuque-hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步"><span class="toc-number">1.2.2.</span> <span class="toc-text">同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清除"><span class="toc-number">1.2.3.</span> <span class="toc-text">清除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">1.2.4.</span> <span class="toc-text">配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编辑器"><span class="toc-number">2.</span> <span class="toc-text">编辑器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#服务器"><span class="toc-number">3.</span> <span class="toc-text">服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Github_Pages"><span class="toc-number">3.1.</span> <span class="toc-text">Github Pages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github_Action"><span class="toc-number">3.2.</span> <span class="toc-text">Github Action</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/logo/" title="logo">logo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IntelliJ-IDEA/" title="IntelliJ IDEA">IntelliJ IDEA<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/汇编/" title="汇编">汇编<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://chenpeng.github.com" target="_blank" title="Blog">Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Chen Peng. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2021 
+		
+		<a href="/about" target="_blank" title="Chen Peng">Chen Peng</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

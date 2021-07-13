@@ -1,0 +1,607 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  
+    <title>网络协议笔记 | 养只阿柴捏脸玩</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Chen Peng">
+    
+
+    
+    <meta name="description" content="最新需要复习一下网络相关的知识，顺手做一下笔记。找工作的时候，经常遇到面试官问：“在浏览器地址栏输入网址，敲一下回车，发生了什么？” 模型OSI 7 层模型和 TCP/IP 4 层模型。所谓 OSI，意为 open system interconnection 开放式系统互联参考模型。 工具笔者使用 netwox 和 wireshark 进行学习。 CDN如果访问的是一个静态资源，那么可能会访问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络协议笔记">
+<meta property="og:url" content="http://chenpeng.github.io/2020/07/02/yuque/网络协议笔记/index.html">
+<meta property="og:site_name" content="养只阿柴捏脸玩">
+<meta property="og:description" content="最新需要复习一下网络相关的知识，顺手做一下笔记。找工作的时候，经常遇到面试官问：“在浏览器地址栏输入网址，敲一下回车，发生了什么？” 模型OSI 7 层模型和 TCP/IP 4 层模型。所谓 OSI，意为 open system interconnection 开放式系统互联参考模型。 工具笔者使用 netwox 和 wireshark 进行学习。 CDN如果访问的是一个静态资源，那么可能会访问">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1593745484986-32aca264-f131-46ce-943b-1019dc1c631f.png#align=left&display=inline&height=235&margin=%5Bobject%20Object%5D&name=image.png&originHeight=471&originWidth=733&size=274514&status=done&style=none&width=366.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594379231152-e5071294-faf0-4492-8eba-07feb4f48883.png#align=left&display=inline&height=385&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=569463&status=done&style=none&width=632">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594436079537-b5875e80-d486-4999-8174-c3bbfd6afbe6.png#align=left&display=inline&height=403&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=1467472&status=done&style=none&width=662">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594445501109-80dd58ec-fd44-4488-a839-cb2a5049b55b.png#align=left&display=inline&height=265&margin=%5Bobject%20Object%5D&name=image.png&originHeight=530&originWidth=1896&size=113184&status=done&style=none&width=948">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594450988102-d009aecd-5308-43cc-adc3-77f32536c6d8.png#align=left&display=inline&height=447&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=801327&status=done&style=none&width=734">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594451777967-461a5f93-8351-40e9-ae3f-bc8fc77bfc39.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=2329101&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594452355940-d55ef7c3-1aca-4563-8b5a-ea074c6eb7dc.png#align=left&display=inline&height=445&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=1561361&status=done&style=none&width=731">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594453588452-7208df73-03d6-4ee6-8d2a-f1ff3d17a0c2.png#align=left&display=inline&height=356&margin=%5Bobject%20Object%5D&name=image.png&originHeight=712&originWidth=1940&size=114233&status=done&style=none&width=970">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594455080341-d09146e6-4326-4a6b-9dfe-f109d7350fad.png#align=left&display=inline&height=477&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=1997962&status=done&style=none&width=783">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594455926179-ca2c5b80-0f78-4fee-9314-8ecc0d7d6864.png#align=left&display=inline&height=423&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=2439441&status=done&style=none&width=695">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594458754613-d4d2a758-4cf1-4c72-941f-0490d9bf98df.png#align=left&display=inline&height=265&margin=%5Bobject%20Object%5D&name=image.png&originHeight=530&originWidth=1912&size=111499&status=done&style=none&width=956">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594352531936-ac2c201b-b6d4-4648-9aa7-81fab94a5ad9.png#align=left&display=inline&height=616&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1232&originWidth=1384&size=203932&status=done&style=none&width=692">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594465764000-b8a46b29-81b4-4148-8931-cd0c20f1e6ba.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=2154364&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594465896407-0da217bd-fd50-4750-ba98-e7081a3fe1fa.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=2200268&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594465979599-617999a6-0790-4daa-94a8-f5c1e5fdc3bb.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=2066880&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469428335-fcb30380-ac14-470f-9d7e-638b91361ba2.png#align=left&display=inline&height=649&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1298&originWidth=1724&size=260020&status=done&style=none&width=862">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469608455-df6fa263-2889-43ec-a75f-dc3b9086ea3f.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=1959672&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469737487-9bbc03f0-419b-4dae-8dfc-c620418ec707.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=1878496&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469824519-adb52320-b132-4b08-8113-3ca81c7f6708.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=1975171&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469913952-fbc0bba1-7419-4947-b935-9daa9491c77b.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=2151224&status=done&style=none&width=1440">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1594471889256-0b04182c-11f9-44ce-8fb7-935bb9c79763.png#align=left&display=inline&height=877&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1754&originWidth=2880&size=1292792&status=done&style=none&width=1440">
+<meta property="og:updated_time" content="2021-07-13T09:45:49.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络协议笔记">
+<meta name="twitter:description" content="最新需要复习一下网络相关的知识，顺手做一下笔记。找工作的时候，经常遇到面试官问：“在浏览器地址栏输入网址，敲一下回车，发生了什么？” 模型OSI 7 层模型和 TCP/IP 4 层模型。所谓 OSI，意为 open system interconnection 开放式系统互联参考模型。 工具笔者使用 netwox 和 wireshark 进行学习。 CDN如果访问的是一个静态资源，那么可能会访问">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2020/png/592189/1593745484986-32aca264-f131-46ce-943b-1019dc1c631f.png#align=left&display=inline&height=235&margin=%5Bobject%20Object%5D&name=image.png&originHeight=471&originWidth=733&size=274514&status=done&style=none&width=366.5">
+
+    
+    <link rel="alternative" href="/atom.xml" title="养只阿柴捏脸玩" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="养只阿柴捏脸玩" title="养只阿柴捏脸玩"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="养只阿柴捏脸玩">养只阿柴捏脸玩</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:chenpeng.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/07/02/yuque/网络协议笔记/" title="网络协议笔记" itemprop="url">网络协议笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Chen Peng" target="_blank" itemprop="author">Chen Peng</a>
+		
+  <p class="article-time">
+    <time datetime="2020-07-02T09:32:24.000Z" itemprop="datePublished"> 发表于 2020-07-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#模型"><span class="toc-number">1.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工具"><span class="toc-number">2.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CDN"><span class="toc-number">3.</span> <span class="toc-text">CDN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">4.</span> <span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP_DNS"><span class="toc-number">5.</span> <span class="toc-text">HTTP DNS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DHCP"><span class="toc-number">6.</span> <span class="toc-text">DHCP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MAC"><span class="toc-number">7.</span> <span class="toc-text">MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看本机网络信息（netwox_169）"><span class="toc-number">7.1.</span> <span class="toc-text">查看本机网络信息（netwox 169）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看网段网络信息（netwox_5）"><span class="toc-number">7.2.</span> <span class="toc-text">查看网段网络信息（netwox 5）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#根据_MAC_地址查信息（netwox_4）"><span class="toc-number">7.3.</span> <span class="toc-text">根据 MAC 地址查信息（netwox 4）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ethernet"><span class="toc-number">8.</span> <span class="toc-text">Ethernet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看以太帧（netwox_32）"><span class="toc-number">8.1.</span> <span class="toc-text">查看以太帧（netwox 32）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造以太帧攻击（netowx_75）"><span class="toc-number">8.2.</span> <span class="toc-text">构造以太帧攻击（netowx 75）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#显示网络信息（netwox_1,2）"><span class="toc-number">8.3.</span> <span class="toc-text">显示网络信息（netwox 1,2）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IP"><span class="toc-number">9.</span> <span class="toc-text">IP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#探测局域网机器信息（netwox_3）"><span class="toc-number">9.1.</span> <span class="toc-text">探测局域网机器信息（netwox 3）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列出所有包含的主机（netwox_213）"><span class="toc-number">9.2.</span> <span class="toc-text">列出所有包含的主机（netwox 213）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算_ip_地址的掩码（netwox_24）"><span class="toc-number">9.3.</span> <span class="toc-text">计算 ip 地址的掩码（netwox 24）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip_协议包结构"><span class="toc-number">9.4.</span> <span class="toc-text">ip 协议包结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_IP_数据包（netwox_38）"><span class="toc-number">9.5.</span> <span class="toc-text">构造 IP 数据包（netwox 38）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于_Ethernet_层构造_IP_数据包（netwox_34）"><span class="toc-number">9.6.</span> <span class="toc-text">基于 Ethernet 层构造 IP 数据包（netwox 34）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#洪水攻击（netwox_74）"><span class="toc-number">9.7.</span> <span class="toc-text">洪水攻击（netwox 74）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ARP"><span class="toc-number">10.</span> <span class="toc-text">ARP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ARP_协议包结构"><span class="toc-number">10.1.</span> <span class="toc-text">ARP 协议包结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_ARP_请求（netwox_33）"><span class="toc-number">10.2.</span> <span class="toc-text">构造 ARP 请求（netwox 33）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_ARP_包（netwox_73）"><span class="toc-number">10.3.</span> <span class="toc-text">构造 ARP 包（netwox 73）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ICMP"><span class="toc-number">11.</span> <span class="toc-text">ICMP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_ICMP_包（netwox_65）"><span class="toc-number">11.1.</span> <span class="toc-text">构造 ICMP 包（netwox 65）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP"><span class="toc-number">12.</span> <span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_TCP_服务端，客户端（netwox_89,87）"><span class="toc-number">12.1.</span> <span class="toc-text">构造 TCP 服务端，客户端（netwox 89,87）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP_报文格"><span class="toc-number">12.2.</span> <span class="toc-text">TCP 报文格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三次握手"><span class="toc-number">12.3.</span> <span class="toc-text">三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_3_次握手包（netwox_42）"><span class="toc-number">12.4.</span> <span class="toc-text">构造 3 次握手包（netwox 42）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据传输"><span class="toc-number">12.5.</span> <span class="toc-text">数据传输</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据分片"><span class="toc-number">12.5.1.</span> <span class="toc-text">数据分片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#滑动窗口机制"><span class="toc-number">12.5.2.</span> <span class="toc-text">滑动窗口机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据重发"><span class="toc-number">12.5.3.</span> <span class="toc-text">数据重发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP_流控制"><span class="toc-number">12.5.4.</span> <span class="toc-text">TCP 流控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四次挥手"><span class="toc-number">12.6.</span> <span class="toc-text">四次挥手</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UDP"><span class="toc-number">13.</span> <span class="toc-text">UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建_UDP_服务器和客户端"><span class="toc-number">13.1.</span> <span class="toc-text">创建 UDP 服务器和客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_UDP_数据包"><span class="toc-number">13.2.</span> <span class="toc-text">构造 UDP 数据包</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>最新需要复习一下网络相关的知识，顺手做一下笔记。<br>找工作的时候，经常遇到面试官问：“在浏览器地址栏输入网址，敲一下回车，发生了什么？”</p>
+<h1 id="模型">模型</h1><p>OSI 7 层模型和 TCP/IP 4 层模型。<br>所谓 OSI，意为 open system interconnection 开放式系统互联参考模型。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1593745484986-32aca264-f131-46ce-943b-1019dc1c631f.png#align=left&amp;display=inline&amp;height=235&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=471&amp;originWidth=733&amp;size=274514&amp;status=done&amp;style=none&amp;width=366.5" alt="image.png"></p>
+<h1 id="工具">工具</h1><p>笔者使用 netwox 和 wireshark 进行学习。</p>
+<h1 id="CDN">CDN</h1><p>如果访问的是一个静态资源，那么可能会访问 CDN。</p>
+<h1 id="DNS">DNS</h1><p>DNS（Domain Name System，域名系统），当在浏览器输入地址，比如<a href="https://www.baidu.com/" target="_blank" rel="noopener">https://www.baidu.com</a>，最终访问的是 ip 地址。将域名转换为 ip 的过程称之为 dns 解析。</p>
+<ol>
+<li>查找浏览器缓存<br>浏览器本身会缓存 dns 记录，缓存时间大概在 2 ～ 30 分钟左右。找到对应的 ip 就返回，找不到执行下一步。</li>
+<li>查找系统缓存<br>如果浏览器缓存中没有对应的 dns 记录，就会访问系统的 hosts 文件。找到对应的 ip 就返回，找不到执行下一步。</li>
+<li>查找 dns 服务器<br>向本地 dns 服务器发起请求，如果本地 dns 服务器没有缓存对应的 ip，则依次向跟域名服务器、顶级域名服务器，发起请求，直至查询到 ip 地址，返回给浏览器。</li>
+</ol>
+<h1 id="HTTP_DNS">HTTP DNS</h1><h1 id="DHCP">DHCP</h1><p>动态主机配置协议，ip 地址可以手动设置，当然一直手动设置比较麻烦，于是就有了 dhcp 协议。<br>当新机器加入一个网络的时候，使用 0.0.0.0 作为 ip 地址，发送一个广播包。目的 ip 地址为 255.255.255.255。<br>dhcp server 通过 mac 地址判断，这是个新机器，就会给它分配一个 ip 地址。<br>有时候 dhcp server 有多个，新机器可能收到多个 ip。新机器接收到 ip 之后，会发送一个广播包。告诉所有 dhcp server，自己已经有 ip 了。</p>
+<h1 id="MAC">MAC</h1><p>MAC 全称 Medium Access Control，意为媒体访问控制。<br>通常说的 MAC 指的是 MAC 地址，类似于设备的身份证号码。比如 81:0f:1f:df:d6:89，用 16 进制表示，6 个 byte。共 48bit，前 24bit 表示厂商，后 24bit 由厂商自己分配。一般一个 MAC 地址对应着唯一的设备，可以通过<a href="https://mac.51240.com/" target="_blank" rel="noopener">https://mac.51240.com/</a>查询设备的生产厂商。<br>Q：竟然 mac 地址唯一，为什么还需要 ip 地址。<br>A：mac 地址通讯范围有限，只能在一个子网里通信。比如我知道一个人的身份证号，但是我并不能通过身份证号知道他住在哪里。</p>
+<h2 id="查看本机网络信息（netwox_169）">查看本机网络信息（netwox 169）</h2><p>通过在命令行执行<code>netwox 169</code>，可以看到本机的信息。Lo 表示回环接口，它是虚拟网络适配器，Eth 是以太网网络适配器，多个的话在后面添加数字编号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 169</span><br><span class="line">Lo0 127.0.0.1 notether</span><br><span class="line">Eth0 192.168.60.245 60:F8:1D:C8:58:B7</span><br><span class="line">Eth5 10.244.184.135 9A:9D:75:8C:57:A8</span><br></pre></td></tr></table></figure>
+<h2 id="查看网段网络信息（netwox_5）">查看网段网络信息（netwox 5）</h2><p>通过<code>netwox 5 -i xxx.xxx.xxx.xxx</code>，可以查看对应 ip 地址的机器 mac 地址。ip 参数可以是固定的 ip，也可以是某个网段。还可以添加<code>-u</code>参数查看进度，如果存在会显示 mac 地址，如果不存在，会显示 unresolved。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 5 -i 192.168.60.0/24 -u</span><br><span class="line">192.168.60.0	unresolved</span><br><span class="line">192.168.60.1	D0:C6:5B:1B:B1:11</span><br><span class="line">192.168.60.2	unresolved</span><br><span class="line">192.168.60.3	unresolved</span><br></pre></td></tr></table></figure>
+<h2 id="根据_MAC_地址查信息（netwox_4）">根据 MAC 地址查信息（netwox 4）</h2><p>通过<code>netwox 4 -e xx:xx:xx:xx:xx:xx</code>，可以根据 mac 地址查到对应机器信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> ~ netwox 4 -e 44:59:E3:2A:F6:B4</span><br><span class="line">IP address:  192.168.60.255</span><br><span class="line">Hostname:    unresolved</span><br><span class="line">Hostnames:   unresolved</span><br></pre></td></tr></table></figure>
+<h1 id="Ethernet">Ethernet</h1><p>以太网传输的数据包称为“以太帧”。<br>以太帧起始部分，由 7 个 byte 的“前同步码”和 1 个 byte 的“帧开始定界符”组成。后面紧跟的是“以太网 MAC 帧”，其中 6 个 byte“目的 Mac 地址”，6 个 byte“源 Mac 地址”，2 个 byte 的“类型”（比如类型 0800：IP 数据报，交给 ip 协议。类型 0806：ARP 请求，应答）。再后面 46 ～ 1500byte 是“ip 数据报”，不足 46 字节时，会填充到最小长度。最大值也叫最大传输单元（MTU）,ifconfig 可以查到这个值，通常为 1500。最后 4byte 是“帧检测”，主要用于校验传输过程中，数据是否丢失或者改变。</p>
+<h2 id="查看以太帧（netwox_32）">查看以太帧（netwox 32）</h2><p>通过 netwox 32 查看以太帧。60:F8:1D:C8:58:B7 为源 MAC 地址，00:08:09:0A:0B:0C 为目标 MAC 地址。0x0000 是以太网类型。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">netwox 32</span><br><span class="line">Ethernet________________________________________________________.</span><br><span class="line">| 60:F8:1D:C8:58:B7-&gt;00:08:09:0A:0B:0C <span class="built_in">type</span>:0x0000              |</span><br><span class="line">|_______________________________________________________________|</span><br></pre></td></tr></table></figure>
+<p>这个命令通过添加参数，可以手动构造以太帧。<code>-a</code>为源 MAC 地址，<code>-b</code>为目标 MAC 地址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">netwox 32 -a 0a:0b:0c:0d:0e:0f -b 01:02:03:04:05:06</span><br><span class="line">Ethernet________________________________________________________.</span><br><span class="line">| 0A:0B:0C:0D:0E:0F-&gt;01:02:03:04:05:06 <span class="built_in">type</span>:0x0000              |</span><br><span class="line">|_______________________________________________________________|</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 抓包，可以看到目标地址 mac 确实是 01:02:03:04:05:06。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594379231152-e5071294-faf0-4492-8eba-07feb4f48883.png#align=left&amp;display=inline&amp;height=385&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=569463&amp;status=done&amp;style=none&amp;width=632" alt="image.png"></p>
+<h2 id="构造以太帧攻击（netowx_75）">构造以太帧攻击（netowx 75）</h2><p>交换机内部有张表，存储了 Mac 地址，方便转发数据。当然这张表大小是有限的，如果存满了，将不会再处理新来的请求。netwox 75 可以实现以太洪水攻击，伪造大量的以太数据包，填满交换机的存储表，使其失去正确的转发功能。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 75</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 可以发现，有大量的伪造数据。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594436079537-b5875e80-d486-4999-8174-c3bbfd6afbe6.png#align=left&amp;display=inline&amp;height=403&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=1467472&amp;status=done&amp;style=none&amp;width=662" alt="image.png"></p>
+<h2 id="显示网络信息（netwox_1,2）">显示网络信息（netwox 1,2）</h2><p>netwox 1 显示网路信息。<br>netwox 2 显示网路调试信息。</p>
+<h1 id="IP">IP</h1><p>ip 地址类似现实世界中的门牌号码。常见的有 IPv4 协议，IPv6 协议。<br>IPv4 协议比如本地 ip：<code>127.0.0.1</code>。通过点号分割为 4 个部分，每个部分 8 个 bit，共 32bit。<br>IPv6 协议比如 fe80::f816:3eff:fec7:7975/64，一共 128bit。<br>由于 IPv6 尚未普及，为了缓解 IPv4 地址数量不够的问题，引入了 CIDR（无类型域间选路）。比如 10.100.122.2/24，ip 地址后面有个/24，表示 32bit 中，前 24bit 代表网络号，后 8bit 代表主机号。</p>
+<h2 id="探测局域网机器信息（netwox_3）">探测局域网机器信息（netwox 3）</h2><p>探测局域网中所有主机的 ip 地址，主机名和 Mac 地址信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 3 -a 192.168.1.0/24</span><br><span class="line">IP address:  192.168.1.0</span><br><span class="line">Hostname:    unresolved</span><br><span class="line">Hostnames:   unresolved</span><br><span class="line">Eth address: unresolved</span><br><span class="line"></span><br><span class="line">IP address:  192.168.1.1</span><br><span class="line">Hostname:    unresolved</span><br><span class="line">Hostnames:   unresolved</span><br><span class="line">Eth address: D0:0F:6D:D6:4A:EE</span><br><span class="line"></span><br><span class="line">IP address:  192.168.1.2</span><br><span class="line">Hostname:    unresolved</span><br><span class="line">Hostnames:   unresolved</span><br><span class="line">Eth address: 98:BB:99:06:24:95</span><br></pre></td></tr></table></figure>
+<p>也可以探测域名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 3 -a www.baidu.com</span><br><span class="line">IP address:  180.101.49.12</span><br><span class="line">Hostname:    www.baidu.com</span><br><span class="line">Hostnames:   www.baidu.com,12.49.101.180.in-addr.arpa</span><br><span class="line">Eth address: unresolved</span><br></pre></td></tr></table></figure>
+<h2 id="列出所有包含的主机（netwox_213）">列出所有包含的主机（netwox 213）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">netwox 213 -i 192.168.1.7/24</span><br><span class="line">192.168.1.0</span><br><span class="line">192.168.1.1</span><br><span class="line">192.168.1.2</span><br><span class="line">192.168.1.3</span><br><span class="line">192.168.1.4</span><br><span class="line">192.168.1.5</span><br><span class="line">192.168.1.6</span><br><span class="line">192.168.1.7</span><br><span class="line">192.168.1.8</span><br><span class="line">192.168.1.9</span><br><span class="line">........</span><br></pre></td></tr></table></figure>
+<h2 id="计算_ip_地址的掩码（netwox_24）">计算 ip 地址的掩码（netwox 24）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 24 -i 192.168.1.7/24</span><br><span class="line">192.168.1.0-192.168.1.255</span><br><span class="line">192.168.1.0/24</span><br><span class="line">192.168.1.0/255.255.255.0</span><br></pre></td></tr></table></figure>
+<h2 id="ip_协议包结构">ip 协议包结构</h2><p><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594445501109-80dd58ec-fd44-4488-a839-cb2a5049b55b.png#align=left&amp;display=inline&amp;height=265&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=530&amp;originWidth=1896&amp;size=113184&amp;status=done&amp;style=none&amp;width=948" alt="image.png"><br>ip 协议包，包含两部分，“首部”和“数据部分”。“首部”最小长度为 20 字节。</p>
+<ul>
+<li>版本（version）：占 4 位，表示 ip 协议的版本。比如“0100”表示 IPv4。</li>
+<li>首部长度（header length）：占 4 位，可表示最大十进制数值是 15（即 1111），这个时候“首部”长度就是 60 字节。常用的数值是 20 字节，即 0101。</li>
+<li>区分服务（tos）：也称之为“服务类型”，占 8 位。区分服务时，此字段才有用。包括 3 bit 的优先权字段（取值可以从 000-111 所有值），4 bit 的 TOS 子字段和 1 bit 未用位但必须置 0。</li>
+<li>总长度（total length）：”首部”和“数据部分”长度之和，单位是字节。占 16 位，所以整个数据报文最大值 2^16-1=65535 字节。</li>
+<li>标识（identification）：用来标识数据报，占 16 位。IP 协议在存储器中维护了一个计数器，每产生一个数据报，计数器加 1，并将此值赋值给“标识”字段。当数据报的长度超过网络的 MTU，而必须分片时，这个标识字段的值就被赋值到所有的数据报文字段中。具有相同标识字段值的分片报文，会重组成原来的数据报。</li>
+<li>标志（flags）：占 3 位。第一位未使用。第二位称为“don’t fragment”，0 表示允许分片，1 表示不允许分片。第三位称为“more fragments”，0 表示没有更多的分片需要发送，或者表示没有分片。</li>
+<li>片偏移（fragment offset）：占 13 位。报文被分片后，该字段标志该分片在原报文中的相对位置。片偏移以 8 个字节为片偏移单位。所以，除了最后一个分片，其他分片都是 8 字节（64 位）的整数倍。</li>
+<li>生存时间（time to live）：占 8 位，表示数据报在网络中的寿命。每经过一个路由器，路由器会将 TTL 数值减 1，直至位 0 时，丢弃数据，不再转发。最大值 255，如果设置为 1，表示该数据只能在本局域网中传送。</li>
+<li>协议（protocol）：表示数据报文携带数据使用的协议，方便目的主机 ip 层按照协议解析数据，占 8 位。比如 TCP 协议号是 6，UDP 的协议号是 17，ICMP 的协议号是 1。</li>
+<li>首部校验和（header checksum）：用来校验“首部”数据，占 16 位。数据报经过路由器时，比如 TTL 可能会发生变化，所以这个值也会跟着变化。</li>
+<li>源地址（source）：表示数据报的源 ip 地址，占 32 位。</li>
+<li>目的地址（destination）：表示数据报的目的地址，占 32 位。</li>
+<li>可选字段：该字段用于一些可选的设置。</li>
+<li>填充：由于可选字段的长度不固定，所以需要填充 0，使长度是 32 位的倍数。</li>
+<li>数据部分：用于传输的数据。</li>
+</ul>
+<h2 id="构造_IP_数据包（netwox_38）">构造 IP 数据包（netwox 38）</h2><p>通过这个命令，可以伪造 ip 数据包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 38</span><br><span class="line">IP______________________________________________________________.</span><br><span class="line">|version|  ihl  |      tos      |            totlen             |</span><br><span class="line">|___4___|___5___|____0x00=0_____|___________0x0014=20___________|</span><br><span class="line">|              id               |r|D|M|       offsetfrag        |</span><br><span class="line">|_________0xFE5D=65117__________|0|0|0|________0x0000=0_________|</span><br><span class="line">|      ttl      |   protocol    |           checksum            |</span><br><span class="line">|____0x00=0_____|____0x00=0_____|____________0xEECF_____________|</span><br><span class="line">|                            <span class="built_in">source</span>                             |</span><br><span class="line">|__________________________192.168.1.7__________________________|</span><br><span class="line">|                          destination                          |</span><br><span class="line">|____________________________5.6.7.8____________________________|</span><br></pre></td></tr></table></figure>
+<p>可以通过-l 和-m 可以设置源 ip 和目的 ip。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 38 -l 192.168.1.1 -m 1.2.3.4</span><br><span class="line">IP______________________________________________________________.</span><br><span class="line">|version|  ihl  |      tos      |            totlen             |</span><br><span class="line">|___4___|___5___|____0x00=0_____|___________0x0014=20___________|</span><br><span class="line">|              id               |r|D|M|       offsetfrag        |</span><br><span class="line">|_________0x91CD=37325__________|0|0|0|________0x0000=0_________|</span><br><span class="line">|      ttl      |   protocol    |           checksum            |</span><br><span class="line">|____0x00=0_____|____0x00=0_____|____________0x636E_____________|</span><br><span class="line">|                            <span class="built_in">source</span>                             |</span><br><span class="line">|__________________________192.168.1.1__________________________|</span><br><span class="line">|                          destination                          |</span><br><span class="line">|____________________________1.2.3.4____________________________|</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 抓包，发现了构造的 ip 数据包。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594450988102-d009aecd-5308-43cc-adc3-77f32536c6d8.png#align=left&amp;display=inline&amp;height=447&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=801327&amp;status=done&amp;style=none&amp;width=734" alt="image.png"></p>
+<h2 id="基于_Ethernet_层构造_IP_数据包（netwox_34）">基于 Ethernet 层构造 IP 数据包（netwox 34）</h2><p>通过这个命令基于 Ethernet 层构造 IP 数据包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> ~ netwox 34</span><br><span class="line">Ethernet________________________________________________________.</span><br><span class="line">| 60:F8:1D:C8:58:B6-&gt;00:08:09:0A:0B:0C <span class="built_in">type</span>:0x0800              |</span><br><span class="line">|_______________________________________________________________|</span><br><span class="line">IP______________________________________________________________.</span><br><span class="line">|version|  ihl  |      tos      |            totlen             |</span><br><span class="line">|___4___|___5___|____0x00=0_____|___________0x0014=20___________|</span><br><span class="line">|              id               |r|D|M|       offsetfrag        |</span><br><span class="line">|_________0x8A31=35377__________|0|0|0|________0x0000=0_________|</span><br><span class="line">|      ttl      |   protocol    |           checksum            |</span><br><span class="line">|____0x00=0_____|____0x00=0_____|____________0x62FC_____________|</span><br><span class="line">|                            <span class="built_in">source</span>                             |</span><br><span class="line">|__________________________192.168.1.7__________________________|</span><br><span class="line">|                          destination                          |</span><br><span class="line">|____________________________5.6.7.8____________________________|</span><br></pre></td></tr></table></figure>
+<p>通过-a 和-b 参数，可以设置源 Mac 地址，和目的 Mac 地址。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 34 -a 0a:0b:0c:0d:0e:0f -b 01:02:03:04:05:06</span><br><span class="line">Ethernet________________________________________________________.</span><br><span class="line">| 0A:0B:0C:0D:0E:0F-&gt;01:02:03:04:05:06 <span class="built_in">type</span>:0x0800              |</span><br><span class="line">|_______________________________________________________________|</span><br><span class="line">IP______________________________________________________________.</span><br><span class="line">|version|  ihl  |      tos      |            totlen             |</span><br><span class="line">|___4___|___5___|____0x00=0_____|___________0x0014=20___________|</span><br><span class="line">|              id               |r|D|M|       offsetfrag        |</span><br><span class="line">|_________0x98B2=39090__________|0|0|0|________0x0000=0_________|</span><br><span class="line">|      ttl      |   protocol    |           checksum            |</span><br><span class="line">|____0x00=0_____|____0x00=0_____|____________0x547B_____________|</span><br><span class="line">|                            <span class="built_in">source</span>                             |</span><br><span class="line">|__________________________192.168.1.7__________________________|</span><br><span class="line">|                          destination                          |</span><br><span class="line">|____________________________5.6.7.8____________________________|</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 抓包，可以看到修改了 Mac 地址的数据包。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594451777967-461a5f93-8351-40e9-ae3f-bc8fc77bfc39.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=2329101&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"></p>
+<h2 id="洪水攻击（netwox_74）">洪水攻击（netwox 74）</h2><p>通过此命令，可以构造大量 ip 数据包，对目标主机进行洪水攻击。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 74 -i 192.168.3.1</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 抓包，可以看到大量的数据包。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594452355940-d55ef7c3-1aca-4563-8b5a-ea074c6eb7dc.png#align=left&amp;display=inline&amp;height=445&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=1561361&amp;status=done&amp;style=none&amp;width=731" alt="image.png"></p>
+<h1 id="ARP">ARP</h1><p>地址解析协议（address resolution protocol）是根据 IP 地址获取 Mac 地址的一个协议。<br>通过<code>arp -a</code>命令可以查看 arp 缓存。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~ arp -a</span><br><span class="line">? (192.168.1.1) at d0:f:6d:d6:4a:ee on en0 ifscope [ethernet]</span><br><span class="line">? (192.168.1.2) at 98:bb:99:6:24:95 on en0 ifscope [ethernet]</span><br><span class="line">? (192.168.1.3) at 0:11:32:86:f3:d8 on en0 ifscope [ethernet]</span><br><span class="line">? (224.0.0.251) at 1:0:5e:0:0:fb on en0 ifscope permanent [ethernet]</span><br><span class="line">? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]</span><br></pre></td></tr></table></figure>
+<h2 id="ARP_协议包结构">ARP 协议包结构</h2><p>arp 协议包包括请求包和相应包。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594453588452-7208df73-03d6-4ee6-8d2a-f1ff3d17a0c2.png#align=left&amp;display=inline&amp;height=356&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=712&amp;originWidth=1940&amp;size=114233&amp;status=done&amp;style=none&amp;width=970" alt="image.png"><br>arp 报文总长度为 28 字节，Mac 地址长度为 6 字节，IP 地址长度为 4 字节。</p>
+<h2 id="构造_ARP_请求（netwox_33）">构造 ARP 请求（netwox 33）</h2><p>通过此命令可以构造 arp 请求包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 33</span><br><span class="line">Ethernet________________________________________________________.</span><br><span class="line">| 60:F8:1D:C8:58:B6-&gt;00:08:09:0A:0B:0C <span class="built_in">type</span>:0x0806              |</span><br><span class="line">|_______________________________________________________________|</span><br><span class="line">ARP Request_____________________________________________________.</span><br><span class="line">| this address : 60:F8:1D:C8:58:B6 0.0.0.0                      |</span><br><span class="line">| asks         : 00:00:00:00:00:00 0.0.0.0                      |</span><br><span class="line">|_______________________________________________________________|</span><br></pre></td></tr></table></figure>
+<p>通过-i 参数请求目标主机。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 33 -i 192.168.3.1</span><br><span class="line">Ethernet________________________________________________________.</span><br><span class="line">| 60:F8:1D:C8:58:B6-&gt;00:08:09:0A:0B:0C <span class="built_in">type</span>:0x0806              |</span><br><span class="line">|_______________________________________________________________|</span><br><span class="line">ARP Request_____________________________________________________.</span><br><span class="line">| this address : 60:F8:1D:C8:58:B6 0.0.0.0                      |</span><br><span class="line">| asks         : 00:00:00:00:00:00 192.168.3.1                  |</span><br><span class="line">|_______________________________________________________________|</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 抓包，可以看到构造的 arp 包。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594455080341-d09146e6-4326-4a6b-9dfe-f109d7350fad.png#align=left&amp;display=inline&amp;height=477&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=1997962&amp;status=done&amp;style=none&amp;width=783" alt="image.png"></p>
+<h2 id="构造_ARP_包（netwox_73）">构造 ARP 包（netwox 73）</h2><p>通过此命令可以构造 ARP 相应包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 73 -i 192.168.3.1 -e 01:02:03:0a:0b:0c</span><br></pre></td></tr></table></figure>
+<h1 id="ICMP">ICMP</h1><p>控制报文协议（internet control message protocol）是 TCP/IP 协议族的一个子协议。<br>icmp 报文一般为 8 个字节。包括 1 个字节的“类型”，1 个字节的“代码”，2 个字节的“校验和”，4 个字节的内容（不同“类型”和“代码”有不同的内容）。<br><code>ping</code>命令就是借助了 icmp 协议。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ ping 192.168.1.1</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 抓包，可以看到确实是这样。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594455926179-ca2c5b80-0f78-4fee-9314-8ecc0d7d6864.png#align=left&amp;display=inline&amp;height=423&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=2439441&amp;status=done&amp;style=none&amp;width=695" alt="image.png"></p>
+<h2 id="构造_ICMP_包（netwox_65）">构造 ICMP 包（netwox 65）</h2><p>通过此命令构造 icmp 包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netwox 65 -i 192.168.1.1</span><br></pre></td></tr></table></figure>
+<h1 id="TCP">TCP</h1><p>获取到 ip 地址后，浏览器会以随机端口（1024 ～ 65535）向服务器 80 或者 443 端口发送 TCP 链接请求。</p>
+<h2 id="构造_TCP_服务端，客户端（netwox_89,87）">构造 TCP 服务端，客户端（netwox 89,87）</h2><p>通过<code>netwox 89</code>命令可以构建 tcp 服务端。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 89 -P 12345</span><br></pre></td></tr></table></figure>
+<p>通过 netwox 87 命令可以构建 tcp 客户端。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 87 -i 127.0.0.1 -p 12345</span><br><span class="line">hi</span><br></pre></td></tr></table></figure>
+<p>通过在客户端输入“hi”，可以看到服务端显示了“hi”。</p>
+<h2 id="TCP_报文格">TCP 报文格</h2><p><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594458754613-d4d2a758-4cf1-4c72-941f-0490d9bf98df.png#align=left&amp;display=inline&amp;height=265&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=530&amp;originWidth=1912&amp;size=111499&amp;status=done&amp;style=none&amp;width=956" alt="image.png"></p>
+<ul>
+<li>源端口（Source Port）：源计算机上的应用程序端口号，占 16 位。</li>
+<li>目的端口（Destination Port）：目的计算机的应用程序端口号，占 16 位。</li>
+<li>序列号（Sequence Number）：占 32 位。用于表示本报文段发送数据的第一个字节编号。</li>
+<li>确认号（Acknowledgment Number）：占 32 位。用于表示接收方期望发送方下一个报文段的第一个字节数据的编号。</li>
+<li>首部长度（Header Length）：占 4 位，表示“首部”的长度。</li>
+<li>保留（Reserved）：占 4 位，保留位置，必须全部是 0。</li>
+<li>标识位<br>CWR（Congestion Window Reduce）：拥塞窗口减少标志，用来表明它接收到了设置 ECE 标志的 TCP 包。并且，发送方收到消息之后，通过减小发送窗口的大小来降低发送速率。<br>ECE（ECN Echo）：用来在 TCP 三次握手时表明一个 TCP 端是具备 ECN 功能的。在数据传输过程中，它也用来表明接收到的 TCP 包的 IP 头部的 ECN 被设置位 11，即网络线路拥堵。<br>URG（Urgent）：表示本报文段中发送的数据是否包含紧急数据。URG=1 时表示有紧急数据，且只有 URG=1 时，后面的“紧急指针”字段才有效。<br>ACK：ACK=1 时，表示有效。TCP 规定，连接建立后，ACK 必须为 1。<br>PSH（Push）：如果值为 1 的话，表示把数据立即发送给上层，而不是缓存起来。<br>RST：如果值为 1 的话，表示 TCP 连接出现了严重的错误，必须重新建立连接。<br>SYN：在建立连接时使用，用来同步序号。当 SYN=1，ACK=0 时，表示这是一个请求建立连接的报文段。当 SYN=1，ACK=1 时，表示对方同意建立连接。<br>FIN：如果值为 1 的话，表示数据发送完毕，可以释放连接。</li>
+<li>窗口大小（Window Size）：占 16 位。它表示从 Ack Number 开始还可以接收多少字节的数据量，也表示当前接收段的接收窗口还有多少剩余空间。该字段可以用于 TCP 的流量控制。</li>
+<li>TCP 校验和字段（TCP checksum）：占 16 位。用于校验传输的数据是否有损坏。</li>
+<li>紧急指针（Urgent Pointer）：占 16 位。仅当“URG”设置位 1 时才有意义。表示数据段中紧急数据的字节数。</li>
+<li>选项（Option）：长度不定，但必须是 32 位的整数倍。</li>
+</ul>
+<h2 id="三次握手">三次握手</h2><p>三次握手的过程。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594352531936-ac2c201b-b6d4-4648-9aa7-81fab94a5ad9.png#align=left&amp;display=inline&amp;height=616&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1232&amp;originWidth=1384&amp;size=203932&amp;status=done&amp;style=none&amp;width=692" alt="image.png"><br>通过 wireshark 抓包，详细地看一下 3 次握手过程。<br>第 1 次握手，SYN=1，seq=0。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594465764000-b8a46b29-81b4-4148-8931-cd0c20f1e6ba.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=2154364&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"><br>第 2 次握手，SYN=1，ACK=1，ack=1。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594465896407-0da217bd-fd50-4750-ba98-e7081a3fe1fa.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=2200268&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"><br>第 3 次握手，seq=1，ack=1，ACK=1。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594465979599-617999a6-0790-4daa-94a8-f5c1e5fdc3bb.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=2066880&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"><br>Q：为何要 3 次握手？<br>A：为了防止已经失效的请求连接报文段突然又传到服务端，因而产生错误。</p>
+<h2 id="构造_3_次握手包（netwox_42）">构造 3 次握手包（netwox 42）</h2><p>通过 netwox 42 命令可以构造 3 次握手包，<code>-n 2</code>表示构造第 1 次握手包，<code>-n 3</code>表示构造第 2 次握手包，<code>-n 4</code>表示构造第 3 次握手包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 42 -x -s 192.168.1.1 -d 192.168.1.2 -S 443 -D 8080 -n 2</span><br><span class="line">IP______________________________________________________________.</span><br><span class="line">|version|  ihl  |      tos      |            totlen             |</span><br><span class="line">|___4___|___5___|____0x00=0_____|___________0x0028=40___________|</span><br><span class="line">|              id               |r|D|M|       offsetfrag        |</span><br><span class="line">|_________0x3B7B=15227__________|0|0|0|________0x0000=0_________|</span><br><span class="line">|      ttl      |   protocol    |           checksum            |</span><br><span class="line">|___0x80=128____|____0x06=6_____|____________0x7C01_____________|</span><br><span class="line">|                            <span class="built_in">source</span>                             |</span><br><span class="line">|__________________________192.168.1.1__________________________|</span><br><span class="line">|                          destination                          |</span><br><span class="line">|__________________________192.168.1.2__________________________|</span><br><span class="line">TCP_____________________________________________________________.</span><br><span class="line">|          <span class="built_in">source</span> port          |       destination port        |</span><br><span class="line">|__________0x01BB=443___________|__________0x1F90=8080__________|</span><br><span class="line">|                            seqnum                             |</span><br><span class="line">|_____________________0x404BFC08=1078721544_____________________|</span><br><span class="line">|                            acknum                             |</span><br><span class="line">|_________________________0x00000000=0__________________________|</span><br><span class="line">| doff  |r|r|r|r|C|E|U|A|P|R|S|F|            window             |</span><br><span class="line">|___5___|0|0|0|0|0|0|0|0|0|0|1|0|__________0x05DC=1500__________|</span><br><span class="line">|           checksum            |            urgptr             |</span><br><span class="line">|_________0xC913=51475__________|___________0x0000=0____________|</span><br></pre></td></tr></table></figure>
+<h2 id="数据传输">数据传输</h2><h3 id="数据分片">数据分片</h3><p>发送的数据包，有最大字节数限制，称之为 MMS（maximum segment size）。当发送的数据超过这个大小的时候，需要分片。第 1 次和第 2 次的握手包，会包含这个 MMS，通知服务器和客户端各自的 MMS。</p>
+<h3 id="滑动窗口机制">滑动窗口机制</h3><p>如果每发送一个包，都需要接收端应答一次的话，比较浪费时间。TCP 引入了“窗口”概念，比如设置了窗口大小为 3，发送端可以直接发送 3 个数据包，不用等待。待 3 个数据包发送完，等待接收端应答这 3 个数据包，接着发送接下来的 3 个数据包。如果发送端没有收到某个响应包，则会调整窗口，继续发送没收到对应响应包的数据包。</p>
+<h3 id="数据重发">数据重发</h3><p>如果发送了 3 个数据包，前 2 个数据包没有收到应答包，最后 1 个应答包收到了。则默认前 2 个数据包接收端收到了，不会重发。<br>如果接收端确实没有收到应答包，会重复 3 次确认应答包。这时发送端会重新发送数据。</p>
+<h3 id="TCP_流控制">TCP 流控制</h3><p>为了合理利用资源，当窗口过小或者过大的时候，会在数据发送和应答时，调整窗口大小。</p>
+<h2 id="四次挥手">四次挥手</h2><p>断开连接，还会涉及到 4 次挥手。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469428335-fcb30380-ac14-470f-9d7e-638b91361ba2.png#align=left&amp;display=inline&amp;height=649&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1298&amp;originWidth=1724&amp;size=260020&amp;status=done&amp;style=none&amp;width=862" alt="image.png"><br>通过 wireshark 抓包，详细地看一下 4 次挥手过程。<br>第 1 次挥手，FIN=1，ACK=1，seq=x。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469608455-df6fa263-2889-43ec-a75f-dc3b9086ea3f.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=1959672&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"><br>第 2 次挥手，ACK=1，seq=y，ack=x+1。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469737487-9bbc03f0-419b-4dae-8dfc-c620418ec707.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=1878496&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"><br>第 3 次挥手，FIN=1，ACK=1，seq=z，ack=x+1。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469824519-adb52320-b132-4b08-8113-3ca81c7f6708.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=1975171&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"><br>第 4 次挥手，seq=x+1，ack=z+1，ACK=1。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594469913952-fbc0bba1-7419-4947-b935-9daa9491c77b.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=2151224&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"></p>
+<p>Q：为什么建立连接需要 3 次握手，断开连接需要 4 次。<br>A：server 在 LESTEN 状态下，收到建立连接请求的 SYN 报文后，把 ACK 和 SYN 放在同一个报文发送给 client。而关闭连接时，当收到 client 的 FIN 时，仅表示 client 不再发送数据，但还能接收数据。server 也可能没有把所有数据发送完毕，所以先 ACK，再发送 FIN。</p>
+<h1 id="UDP">UDP</h1><p>想比 TCP，UDP 突出一个简单。<br>UDP 报文头，只包括 16 位的源端口，16 位的目的端口，16 位的长度，16 位的校验值。</p>
+<h2 id="创建_UDP_服务器和客户端">创建 UDP 服务器和客户端</h2><p>通过 netwox 90 创建服务器，<code>-P</code>指定端口号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 90 -P 12345</span><br></pre></td></tr></table></figure>
+<p>通过 netwox 88 创建客户端，<code>-i</code>指定服务器，<code>-p</code>指定端口号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 88 -i 127.0.0.1 -p 12345</span><br><span class="line">hi</span><br></pre></td></tr></table></figure>
+<p>在客户端输入“hi”，会在服务器显示出来。</p>
+<h2 id="构造_UDP_数据包">构造 UDP 数据包</h2><p>通过<code>netwox 39</code>可以构造数据包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 39</span><br><span class="line">IP______________________________________________________________.</span><br><span class="line">|version|  ihl  |      tos      |            totlen             |</span><br><span class="line">|___4___|___5___|____0x00=0_____|___________0x001C=28___________|</span><br><span class="line">|              id               |r|D|M|       offsetfrag        |</span><br><span class="line">|_________0x8B61=35681__________|0|0|0|________0x0000=0_________|</span><br><span class="line">|      ttl      |   protocol    |           checksum            |</span><br><span class="line">|____0x00=0_____|____0x11=17____|____________0x61B3_____________|</span><br><span class="line">|                            <span class="built_in">source</span>                             |</span><br><span class="line">|__________________________192.168.1.7__________________________|</span><br><span class="line">|                          destination                          |</span><br><span class="line">|____________________________5.6.7.8____________________________|</span><br><span class="line">UDP_____________________________________________________________.</span><br><span class="line">|          <span class="built_in">source</span> port          |       destination port        |</span><br><span class="line">|__________0x04D2=1234__________|___________0x0050=80___________|</span><br><span class="line">|            length             |           checksum            |</span><br><span class="line">|___________0x0008=8____________|_________0x2CFF=11519__________|</span><br></pre></td></tr></table></figure>
+<p>通过添加参数，伪造 ip 和端口号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~ netwox 39 -l 192.168.1.1 -m 192.168.1.2 -o 443 -p 8080</span><br><span class="line">IP______________________________________________________________.</span><br><span class="line">|version|  ihl  |      tos      |            totlen             |</span><br><span class="line">|___4___|___5___|____0x00=0_____|___________0x001C=28___________|</span><br><span class="line">|              id               |r|D|M|       offsetfrag        |</span><br><span class="line">|_________0xDA73=55923__________|0|0|0|________0x0000=0_________|</span><br><span class="line">|      ttl      |   protocol    |           checksum            |</span><br><span class="line">|____0x00=0_____|____0x11=17____|____________0x5D0A_____________|</span><br><span class="line">|                            <span class="built_in">source</span>                             |</span><br><span class="line">|__________________________192.168.1.1__________________________|</span><br><span class="line">|                          destination                          |</span><br><span class="line">|__________________________192.168.1.2__________________________|</span><br><span class="line">UDP_____________________________________________________________.</span><br><span class="line">|          <span class="built_in">source</span> port          |       destination port        |</span><br><span class="line">|__________0x01BB=443___________|__________0x1F90=8080__________|</span><br><span class="line">|            length             |           checksum            |</span><br><span class="line">|___________0x0008=8____________|_________0x5B3F=23359__________|</span><br></pre></td></tr></table></figure>
+<p>通过 Wireshark 抓包，可以看到伪造的数据包。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/592189/1594471889256-0b04182c-11f9-44ce-8fb7-935bb9c79763.png#align=left&amp;display=inline&amp;height=877&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=1754&amp;originWidth=2880&amp;size=1292792&amp;status=done&amp;style=none&amp;width=1440" alt="image.png"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://chenpeng.github.io/2020/07/02/yuque/网络协议笔记/" data-title="网络协议笔记 | 养只阿柴捏脸玩" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2020/06/11/yuque/Elasticsearch笔记/"  title="Elasticsearch笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>Elasticsearch笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#模型"><span class="toc-number">1.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工具"><span class="toc-number">2.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CDN"><span class="toc-number">3.</span> <span class="toc-text">CDN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS"><span class="toc-number">4.</span> <span class="toc-text">DNS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP_DNS"><span class="toc-number">5.</span> <span class="toc-text">HTTP DNS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DHCP"><span class="toc-number">6.</span> <span class="toc-text">DHCP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MAC"><span class="toc-number">7.</span> <span class="toc-text">MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看本机网络信息（netwox_169）"><span class="toc-number">7.1.</span> <span class="toc-text">查看本机网络信息（netwox 169）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看网段网络信息（netwox_5）"><span class="toc-number">7.2.</span> <span class="toc-text">查看网段网络信息（netwox 5）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#根据_MAC_地址查信息（netwox_4）"><span class="toc-number">7.3.</span> <span class="toc-text">根据 MAC 地址查信息（netwox 4）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ethernet"><span class="toc-number">8.</span> <span class="toc-text">Ethernet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看以太帧（netwox_32）"><span class="toc-number">8.1.</span> <span class="toc-text">查看以太帧（netwox 32）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造以太帧攻击（netowx_75）"><span class="toc-number">8.2.</span> <span class="toc-text">构造以太帧攻击（netowx 75）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#显示网络信息（netwox_1,2）"><span class="toc-number">8.3.</span> <span class="toc-text">显示网络信息（netwox 1,2）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IP"><span class="toc-number">9.</span> <span class="toc-text">IP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#探测局域网机器信息（netwox_3）"><span class="toc-number">9.1.</span> <span class="toc-text">探测局域网机器信息（netwox 3）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列出所有包含的主机（netwox_213）"><span class="toc-number">9.2.</span> <span class="toc-text">列出所有包含的主机（netwox 213）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算_ip_地址的掩码（netwox_24）"><span class="toc-number">9.3.</span> <span class="toc-text">计算 ip 地址的掩码（netwox 24）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip_协议包结构"><span class="toc-number">9.4.</span> <span class="toc-text">ip 协议包结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_IP_数据包（netwox_38）"><span class="toc-number">9.5.</span> <span class="toc-text">构造 IP 数据包（netwox 38）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于_Ethernet_层构造_IP_数据包（netwox_34）"><span class="toc-number">9.6.</span> <span class="toc-text">基于 Ethernet 层构造 IP 数据包（netwox 34）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#洪水攻击（netwox_74）"><span class="toc-number">9.7.</span> <span class="toc-text">洪水攻击（netwox 74）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ARP"><span class="toc-number">10.</span> <span class="toc-text">ARP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ARP_协议包结构"><span class="toc-number">10.1.</span> <span class="toc-text">ARP 协议包结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_ARP_请求（netwox_33）"><span class="toc-number">10.2.</span> <span class="toc-text">构造 ARP 请求（netwox 33）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_ARP_包（netwox_73）"><span class="toc-number">10.3.</span> <span class="toc-text">构造 ARP 包（netwox 73）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ICMP"><span class="toc-number">11.</span> <span class="toc-text">ICMP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_ICMP_包（netwox_65）"><span class="toc-number">11.1.</span> <span class="toc-text">构造 ICMP 包（netwox 65）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP"><span class="toc-number">12.</span> <span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_TCP_服务端，客户端（netwox_89,87）"><span class="toc-number">12.1.</span> <span class="toc-text">构造 TCP 服务端，客户端（netwox 89,87）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP_报文格"><span class="toc-number">12.2.</span> <span class="toc-text">TCP 报文格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三次握手"><span class="toc-number">12.3.</span> <span class="toc-text">三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_3_次握手包（netwox_42）"><span class="toc-number">12.4.</span> <span class="toc-text">构造 3 次握手包（netwox 42）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据传输"><span class="toc-number">12.5.</span> <span class="toc-text">数据传输</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据分片"><span class="toc-number">12.5.1.</span> <span class="toc-text">数据分片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#滑动窗口机制"><span class="toc-number">12.5.2.</span> <span class="toc-text">滑动窗口机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据重发"><span class="toc-number">12.5.3.</span> <span class="toc-text">数据重发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP_流控制"><span class="toc-number">12.5.4.</span> <span class="toc-text">TCP 流控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四次挥手"><span class="toc-number">12.6.</span> <span class="toc-text">四次挥手</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UDP"><span class="toc-number">13.</span> <span class="toc-text">UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建_UDP_服务器和客户端"><span class="toc-number">13.1.</span> <span class="toc-text">创建 UDP 服务器和客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造_UDP_数据包"><span class="toc-number">13.2.</span> <span class="toc-text">构造 UDP 数据包</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/logo/" title="logo">logo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IntelliJ-IDEA/" title="IntelliJ IDEA">IntelliJ IDEA<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/汇编/" title="汇编">汇编<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/docker/" title="docker">docker<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://chenpeng.github.com" target="_blank" title="Blog">Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Chen Peng. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2021 
+		
+		<a href="/about" target="_blank" title="Chen Peng">Chen Peng</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
